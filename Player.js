@@ -8,6 +8,7 @@ class Player{
         this.body = Bodies.rectangle(x, y, width, height, options);
         this.width = width;
         this.height = height;
+
         World.add(world, this.body);
       }
       display(){
@@ -27,9 +28,13 @@ class Player{
         Matter.Body.translate(this.body,push)
      }
      moveUp(){
+      if(this.body.speed<0.5)
+      {
          var push = Matter.Vector.create(0,-12)
          var pos =  Matter.Vector.create(this.body.position.x,this.body.position.y)
           Matter.Body.setVelocity(this.body,push)
+         }
+
      }
 
 }

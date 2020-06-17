@@ -3,8 +3,8 @@ class Menu{
         this.playButton = createImg('image/play.png')
     }
     display()
-    {
-        this.playButton.position(displayWidth/2,displayHeight/2)
+    {   background(235,235,235)
+        this.playButton.position(displayWidth/2-100,displayHeight/2)
         this.playButton.mousePressed(()=>
         {
             this.playButton.hide()

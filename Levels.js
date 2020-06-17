@@ -7,6 +7,7 @@ class Levels
         this.l4button = createButton('4')
         this.l5button = createButton('5')
         this.l6button = createButton('6')
+        this.l7button = createButton('7')
     }
     l1(){
        this.l1button.position(200,200)
@@ -81,10 +82,30 @@ class Levels
           this.hide()
           blackGround1Level6 = new BlackGround(displayWidth/2-400,displayHeight,300,150)
           blackGround2Level6 = new BlackGround(displayWidth-100,displayHeight/2+180,300,600)
-          whiteGround1Level6 = new WhiteGround(displayWidth/2-50,displayHeight-50,50,300)
-          whiteGround2Level6 = new WhiteGround(displayWidth/2+250,displayHeight-50,50,600)
+          whiteGround1Level6 = new WhiteGround(displayWidth/2-50,displayHeight-50,80,300)
+          whiteGround2Level6 = new WhiteGround(displayWidth/2+250,displayHeight-50,80,600)
           playerLevel6 = new Player(displayWidth/2-400,displayHeight-100,60,100)
           level = 6
+        })
+    }
+    l7(){
+        this.l7button.position(800,200)
+        this.l7button.mousePressed(()=>
+        {
+           this.hide()
+           blackGround1Level7 = new BlackGround(displayWidth/2-140,displayHeight/2,150,400)
+           blackGround2Level7 = new BlackGround(displayWidth/2+10,displayHeight/2+37.5,150,325)
+           blackGround3Level7 = new BlackGround(displayWidth/2+160,displayHeight/2+87.5,150,225) 
+           blackGround4Level7 = new BlackGround(displayWidth/2+310,displayHeight/2+137.5,150,125)
+           blackGround5Level7 = new BlackGround(displayWidth/2-230,displayHeight/2-125,10,150)
+           blackGround6Level7 = new BlackGround(displayWidth/2-300,displayHeight/2-65,150,10)
+           whiteGround1Level7 = new WhiteGround(displayWidth/2+310,displayHeight/2+67.5,150,10)
+           whiteGround2Level7 = new WhiteGround(displayWidth/2+240,displayHeight/2+24.5,10,100)
+           whiteGround3Level7 = new WhiteGround(displayWidth/2+85,displayHeight/2+192.5,600,15)
+           whiteGround4Level7 = new WhiteGround(displayWidth/2-220,displayHeight/2-125,10,150)
+           whiteGround5Level7 = new WhiteGround(displayWidth/2-300,displayHeight/2-55,150,10)
+           playerLevel7 = new Player(displayWidth/2-300,displayHeight/2-125,60,100)
+           level = 7
         })
     }
     hide()
@@ -95,6 +116,7 @@ class Levels
         this.l3button.hide()
         this.l4button.hide()
         this.l5button.hide()
+        this.l7button.hide()
     }
 
 }
