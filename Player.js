@@ -4,11 +4,14 @@ class Player{
             'restitution':0.8,
             'friction':1.0,
             'density':1.0
+            
         }
         this.body = Bodies.rectangle(x, y, width, height, options);
         this.width = width;
         this.height = height;
-
+        Matter.Body.setMass(this.body, this.body.mass*2)
+        //this.animation = playerAnimation
+        this.image = loadImage('Image/playerRight.png')
         World.add(world, this.body);
       }
       display(){
@@ -16,25 +19,41 @@ class Player{
         stroke(51,51,51)
         strokeWeight(5)
         fill(235,235,235)
-        rectMode(CENTER);
-        rect( this.body.position.x,this.body.position.y, this.width, this.height);
-      }
+        imageMode(CENTER);
+        image(this.image,this.body.position.x,this.body.position.y, this.width, this.height);
+
+    }
       moveRight(){
-         var push = Matter.Vector.create(+8,0)
+         var push = Matter.Vector.create(+6,0)
          Matter.Body.translate(this.body,push)
+         if(backColor===1)
+         {
+         this.image = playerWhiteRight
+         }
+         else{
+          this.image = playerRightImg
+         }
+         playerMode = "right"
       }
       moveLeft(){
-        var push = Matter.Vector.create(-8,0)
+        var push = Matter.Vector.create(-6,0)
         Matter.Body.translate(this.body,push)
+        if(backColor===1)
+        {
+        this.image = playerWhiteLeft
+        }
+        else{
+         this.image = playerLeftImg
+        }
+        playerMode = "left"
      }
      moveUp(){
-      if(this.body.speed<0.5)
+      if(this.body.speed<1)
       {
-         var push = Matter.Vector.create(0,-12)
+         var push = Matter.Vector.create(0,-472)
          var pos =  Matter.Vector.create(this.body.position.x,this.body.position.y)
-          Matter.Body.setVelocity(this.body,push)
+          Matter.Body.applyForce(this.body,pos,push)
          }
-
+      
      }
-
 }

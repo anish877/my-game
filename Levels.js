@@ -1,27 +1,48 @@
 class Levels
 {
     constructor(){
-        this.l1button = createImg('Image/level1.png')
-        this.l2button = createImg('Image/level2.png')
-        this.l3button = createImg('Image/level3.png')
-        this.l4button = createImg('Image/level4.png')
-        this.l5button = createImg('Image/level5.png')
-        this.l6button = createImg('Image/level6.png')
-        this.l7button = createImg('Image/level7.png')
-        this.l8button = createImg('Image/level8.png')
-        this.l9button = createImg('Image/level9.png')
-        this.l10button = createImg('Image/level10.png')
+        if(gameState>=1)
+        {this.l1button = createImg('Image/level1.png')}
+        if(gameState>=2)
+        {this.l2button = createImg('Image/level2.png')}
+        if(gameState>=3)
+        {this.l3button = createImg('Image/level3.png')}
+        if(gameState>=4)
+        {this.l4button = createImg('Image/level4.png')}
+        if(gameState>=5)
+        {this.l5button = createImg('Image/level5.png')}
+        if(gameState>=6)
+        {this.l6button = createImg('Image/level6.png')}
+        if(gameState>=7)
+        {this.l7button = createImg('Image/level7.png')}
+        if(gameState>=8)
+        {this.l8button = createImg('Image/level8.png')}
+        if(gameState>=9)
+        {this.l9button = createImg('Image/level9.png')}
+        if(gameState>=10)
+        {this.l10button = createImg('Image/level10.png')}
+        if(gameState>=11)
+        {this.l11button = createImg('Image/level11.png')}
+        if(gameState>=12)
+        {this.l12button = createImg('Image/level12.png')}
+        if(gameState>=13)
+        {this.l13button = createImg('Image/level13.png')}
+        if(gameState>=14)
+        {this.l14button = createImg('Image/level14.png')}
+        if(gameState>=15)
+        {this.l15button = createImg('Image/level15.png')}
     }
     l1(){
        this.l1button.position(200,200)
        this.l1button.mousePressed(()=>
        {
             this.hide()
-            playerLevel1 = new Player(displayWidth/2-600,displayHeight/2-90,60,100)
+            playerLevel1 = new Player(displayWidth/2-600,displayHeight/2-90,80,80)
             whiteGroundLevel1 = new WhiteGround(displayWidth/2+400,displayHeight/2+30,displayWidth/2+60,20)
             blackGroundLevel1 = new BlackGround(displayWidth/2-320,displayHeight/2+30,displayWidth/2,20)
-            // starLevel1 = new Star(displayWidth/2+620,displayHeight/2-50)
+            starLevel1 = new Star(displayWidth/2+620,displayHeight/2-50,20,20)
             level = 1
+            gameState1 = "play"
        })
     }
     l2(){
@@ -32,8 +53,10 @@ class Levels
             whiteGroundLevel2 = new WhiteGround(displayWidth/2-200,displayHeight/2+100,displayWidth/2+60,20)
             blackGround1Level2 = new BlackGround(displayWidth/2-220,displayHeight/2-100,displayWidth/2,20)
             blackGround2Level2 = new BlackGround(displayWidth/2,displayHeight/2+300,displayWidth,20)
-            playerLevel2 = new Player(displayWidth/2,displayHeight/2 - 120,60,100)
+            playerLevel2 = new Player(displayWidth/2,displayHeight/2 - 120,80,80)
+            starLevel2 = new Star(displayWidth-50,displayHeight/2+260,20,20)
             level = 2
+            gameState1 = "play"
        })
     }
     l3(){
@@ -44,8 +67,10 @@ class Levels
         whiteGround1Level3 = new WhiteGround(displayWidth/2-500,displayHeight/2+300,300,300)
         whiteGround2Level3 = new WhiteGround(displayWidth/2+500,displayHeight/2+300,300,300)
         blackGroundLevel3 = new BlackGround(displayWidth/2,displayHeight/2+300,300,300)
-        playerLevel3 = new Player(displayWidth/2-500,0 + 20,60,100)
+        playerLevel3 = new Player(displayWidth/2-500,0 + 20,80,80)
+        starLevel3 = new Star(displayWidth/2+530,displayHeight/2+100,20,20)
         level = 3
+        gameState1 = "play"
        }) 
     }
     l4(){
@@ -60,8 +85,10 @@ class Levels
             blackGround5Level4 = new BlackGround(displayWidth/2,displayHeight-50,displayWidth+ 100,100)
             whiteGround1Level4 = new WhiteGround(displayWidth/2-483,displayHeight/2-155,200,20)
             whiteGround2Level4 = new WhiteGround(displayWidth/2+486,displayHeight/2+155,200,20)
-            playerLevel4 = new Player(80,displayWidth/2-20,60,100)
+            playerLevel4 = new Player(80,displayWidth/2-20,80,80)
+            starLevel4 = new Star(displayWidth/2+500,displayHeight/2-340,20,20)
             level = 4  
+            gameState1 = "play"
         })
     }
     l5(){
@@ -76,8 +103,10 @@ class Levels
             blackGround5Level5 = new BlackGround(540,displayHeight-420,80,420)
             blackGround6Level5 = new BlackGround(880,350,200,400)
             blackGround7Level5 = new BlackGround(1230,550,900,60)
-            playerLevel5 = new Player(250,displayHeight-250,60,100)  
+            playerLevel5 = new Player(250,displayHeight-250,80,80)
+            starLevel5 = new Star(1230,480,20,20)  
             level = 5
+            gameState1 = "play"
         })
     }
     l6(){
@@ -88,8 +117,10 @@ class Levels
           blackGround2Level6 = new BlackGround(displayWidth-100,displayHeight/2+180,300,600)
           whiteGround1Level6 = new WhiteGround(displayWidth/2-50,displayHeight-50,80,300)
           whiteGround2Level6 = new WhiteGround(displayWidth/2+250,displayHeight-50,80,600)
-          playerLevel6 = new Player(displayWidth/2-400,displayHeight-100,60,100)
+          playerLevel6 = new Player(displayWidth/2-400,displayHeight-100,80,80)
+          starLevel6 = new Star(displayWidth-100,displayHeight/2-200,20,20)  
           level = 6
+          gameState1 = "play"
         })
     }
     l7(){
@@ -108,8 +139,10 @@ class Levels
            whiteGround3Level7 = new WhiteGround(displayWidth/2+85,displayHeight/2+192.5,600,15)
            whiteGround4Level7 = new WhiteGround(displayWidth/2-220,displayHeight/2-125,10,150)
            whiteGround5Level7 = new WhiteGround(displayWidth/2-300,displayHeight/2-55,150,10)
-           playerLevel7 = new Player(displayWidth/2-300,displayHeight/2-125,60,100)
+           playerLevel7 = new Player(displayWidth/2-300,displayHeight/2-125,80,80)
+           starLevel7 = new Star(displayWidth/2-140,displayHeight/2-250,20,20)
            level = 7
+           gameState1 = "play"
         })
     }
     l8(){
@@ -122,8 +155,10 @@ class Levels
             blackGround3Level8 = new BlackGround(displayWidth/2+500,displayHeight-100,400,70)
             whiteGround1Level8 = new WhiteGround(displayWidth/2-400,displayHeight-250,70,10)
             whiteGround2Level8 = new WhiteGround(displayWidth/2-380,displayHeight-550,120,10)
-            playerLevel8 = new Player(displayWidth/2-400,displayHeight-110,60,100)
+            playerLevel8 = new Player(displayWidth/2-400,displayHeight-110,80,80)
+            starLevel8 = new Star(displayWidth/2+580,displayHeight-200,20,20)
             level= 8
+            gameState1 = "play"
         })
     }
     l9(){
@@ -133,8 +168,10 @@ class Levels
             this.hide()
             blackGround1Level9 = new BlackGround(displayWidth/2,displayHeight/2+300,displayWidth,displayHeight/2)
             blackGround2Level9 = new BlackGround(displayWidth/2,200,400,600)
-            playerLevel9 = new Player(40,displayHeight/2,60,100)
+            playerLevel9 = new Player(40,displayHeight/2,80,80)
+            starLevel9 = new Star(displayWidth/2+550,displayHeight/2-100,20,20)
             level = 9
+            gameState1 = "play"
         })
     }
     l10(){
@@ -145,30 +182,149 @@ class Levels
             blackGround1Level10 = new BlackGround(displayWidth/2-400,displayHeight/2,80,200)
             blackGround2Level10 = new BlackGround(displayWidth/2+200,displayHeight/2-200,80,80)
             blackGround3Level10 = new BlackGround(displayWidth/2+400,displayHeight/2-100,80,100)
-            blackGround4Level10 = new BlackGround()
-            blackGround5Level10 = new BlackGround()
             whiteGround1Level10 = new WhiteGround(displayWidth/2-200,displayHeight/2-100,80,100)
             whiteGround2Level10 = new WhiteGround(displayWidth/2,displayHeight/2-200,80,80)
             whiteGround3Level10 = new WhiteGround(displayWidth-100,displayHeight/2,80,200)
-            whiteGround4Level10 = new WhiteGround()
-            whiteGround5Level10 = new WhiteGround()
-            playerLevel10 = new Player(displayWidth/2-400,displayHeight/2-100,60,100)
+            playerLevel10 = new Player(displayWidth/2-400,displayHeight/2-100,80,80)
+            starLevel10 = new Star(displayWidth-100,displayHeight/2-130,20,20)
             level = 10
+            gameState1 = "play"
+        })
+    }
+    l11(){
+        this.l11button.position(200,600)
+        this.l11button.mousePressed(()=>
+        {
+            this.hide()
+            blackGround1Level11 = new BlackGround(displayWidth/2-600,displayHeight-100,70,70)
+            blackGround2Level11 = new BlackGround(displayWidth/2-600,displayHeight-400,70,70)
+            blackGround3Level11 = new BlackGround(displayWidth/2-100,displayHeight-550,70,70)
+            blackGround4Level11 = new BlackGround(displayWidth/2+400,displayHeight-550,70,70)
+            blackGround5Level11 = new BlackGround(displayWidth/2+600,displayHeight-400,70,70)
+            blackGround6Level11 = new BlackGround(displayWidth/2+600,displayHeight-100,70,70)
+            whiteGround1Level11 = new WhiteGround(displayWidth/2-350,displayHeight-250,70,70)
+            whiteGround2Level11 = new WhiteGround(displayWidth/2-350,displayHeight-550,70,70)
+            whiteGround3Level11 = new WhiteGround(displayWidth/2+150,displayHeight-550,70,70)
+            whiteGround4Level11 = new WhiteGround(displayWidth/2+350,displayHeight-250,70,70)
+            playerLevel11 = new Player(displayWidth/2-600,displayHeight-140,80,80)
+            starLevel11 = new Star(displayWidth/2+600,displayHeight-175,20,20)
+            level = 11
+            gameState1 = "play"
+        })
+    }
+    l12(){
+        this.l12button.position(400,600)
+        this.l12button.mousePressed(()=>{
+            this.hide()
+            blackGround1Level12 = new BlackGround(displayWidth/2,displayHeight/2-200,260,20)
+            blackGround2Level12 = new BlackGround(displayWidth/2,displayHeight/2+185,450,250)
+            blackGround3Level12 = new BlackGround()
+            blackGround4Level12 = new BlackGround()
+            whiteGround1Level12 = new WhiteGround(displayWidth/2,displayHeight/2-65,450,250)
+            whiteGround2Level12 = new WhiteGround(displayWidth/2,displayHeight/2+235,215,150)
+            playerLevel12 = new Player(displayWidth/2,displayHeight/2-250,80,80)
+            starLevel12 = new Star(displayWidth/2,displayHeight/2+260,20,20)
+            level = 12
+            gameState1 = "play"
+        })
+    }
+    l13(){
+        this.l13button.position(600,600)
+        this.l13button.mousePressed(()=>{
+        this.hide()
+        blackGround1Level13 = new BlackGround(displayWidth/2-400,displayHeight/2+50,100,140)
+        blackGround2Level13 = new BlackGround(displayWidth/2-100,displayHeight/2+120,40,250)
+        blackGround3Level13 = new BlackGround(displayWidth/2+50,displayHeight/2+80,60,250)
+        blackGround4Level13 = new BlackGround(displayWidth/2+500,displayHeight/2+20,100,60)
+        whiteGround1Level13 = new WhiteGround(displayWidth/2-250,displayHeight/2+50,60,250) 
+        whiteGround2Level13 = new WhiteGround(displayWidth/2+200,displayHeight/2-20,60,120)
+        whiteGround3Level13 = new WhiteGround(displayWidth/2+350,displayHeight/2+40,60,120)
+        whiteGround4Level13 = new WhiteGround(displayWidth/2+650,displayHeight/2-40,60,120)
+        playerLevel13 = new Player(displayWidth/2-400,displayHeight/2,80,80)
+        starLevel13 = new Star(displayWidth/2+650,displayHeight/2-120,20,20)
+        level = 13
+        gameState1 = "play"
+        })
+    }
+    l14(){
+        this.l14button.position(800,600)
+        this.l14button.mousePressed(()=>{
+        this.hide()
+        blackGround1Level14 = new BlackGround(displayWidth/2-400,displayHeight/2+200,200,100)
+        blackGround2Level14 = new BlackGround(displayWidth/2-325,displayHeight/2+50,50,200)
+        blackGround3Level14 = new BlackGround(displayWidth/2-225,displayHeight/2-100,250,100)
+        blackGround4Level14 = new BlackGround(displayWidth/2-125,displayHeight/2+50,50,200)
+        blackGround5Level14 = new BlackGround(displayWidth/2,displayHeight/2+200,300,100)
+        blackGround6Level14 = new BlackGround(displayWidth/2+125,displayHeight/2+50,50,200)
+        blackGround7Level14 = new BlackGround(displayWidth/2+225,displayHeight/2-100,250,100)
+        blackGround8Level14 = new BlackGround(displayWidth/2+325,displayHeight/2+50,50,200)
+        blackGround9Level14 = new BlackGround(displayWidth/2+600,displayHeight/2+200,600,100)
+        whiteGround1Level14 = new WhiteGround(displayWidth/2-280,displayHeight/2+200,40,100)
+        whiteGround2Level14 = new WhiteGround(displayWidth/2-170,displayHeight/2+200,40,100)
+        whiteGround3Level14 = new WhiteGround(displayWidth/2+280,displayHeight/2+200,40,100)
+        whiteGround4Level14 = new WhiteGround(displayWidth/2+170,displayHeight/2+200,40,100)
+        playerLevel14 = new Player(displayWidth/2-425,displayHeight/2+150,80,80)
+        starLevel14 = new Star(displayWidth/2+600,displayHeight/2+100,20,20)
+        level = 14
+        gameState1 = "play"
+        })
+    }
+    l15(){
+        this.l15button.position(1000,600)
+        this.l15button.mousePressed(()=>
+        {
+            this.hide()
+            blackGround1Level15 = new BlackGround(displayWidth/2-400,displayHeight/2+200,200,10)
+            blackGround2Level15 = new BlackGround(displayWidth/2-500,displayHeight/2+100,10,200)
+            blackGround3Level15 = new BlackGround(displayWidth/2-400,displayHeight/2,200,10)
+            blackGround4Level15 = new BlackGround(displayWidth/2-300,displayHeight/2+100,10,200)
+            blackGround5Level15 = new BlackGround(displayWidth/2,displayHeight/2+200,200,10)
+            blackGround6Level15 = new BlackGround(displayWidth/2-100,displayHeight/2+100,10,200)
+            blackGround7Level15 = new BlackGround(displayWidth/2,displayHeight/2,200,10)
+            blackGround8Level15 = new BlackGround(displayWidth/2+100,displayHeight/2+100,10,200)
+            blackGround9Level15 = new BlackGround(displayWidth/2+400,displayHeight/2+200,200,10)
+            blackGround10Level15 = new BlackGround(displayWidth/2+500,displayHeight/2+100,10,200)
+            blackGround11Level15 = new BlackGround(displayWidth/2+400,displayHeight/2,200,10)
+            blackGround12Level15 = new BlackGround(displayWidth/2+300,displayHeight/2+100,10,200)
+            playerLevel15 = new Player(displayWidth/2-400,displayHeight/2+150,80,80)
+            starLevel15 = new Star(displayWidth/2+400,displayHeight/2+150,20,20)
+            level = 15
+            gameState1 = "play"
         })
     }
     hide()
     {
         backToMenu.hide()
-        this.l6button.hide()
-        this.l2button.hide()
-        this.l1button.hide()
-        this.l3button.hide()
-        this.l4button.hide()
-        this.l5button.hide()
-        this.l7button.hide()
-        this.l8button.hide()
-        this.l9button.hide()
-        this.l10button.hide()
+        if(gameState>=1)
+        {this.l1button.hide()}
+        if(gameState>=2)
+        {this.l2button.hide()}
+        if(gameState>=3)
+        {this.l3button.hide()}
+        if(gameState>=4)
+        {this.l4button.hide()}
+        if(gameState>=5)
+        {this.l5button.hide()}
+        if(gameState>=6)
+        {this.l6button.hide()}
+        if(gameState>=7)
+        {this.l7button.hide()}
+        if(gameState>=8)
+        {this.l8button.hide()}
+        if(gameState>=9)
+        {this.l9button.hide()}
+        if(gameState>=10)
+        {this.l10button.hide()}
+        if(gameState>=11)
+        {this.l11button.hide()}
+        if(gameState>=12)
+        {this.l12button.hide()}
+        if(gameState>=13)
+        {this.l13button.hide()}
+        if(gameState>=14)
+        {this.l14button.hide()}
+        if(gameState>=15)
+        {this.l15button.hide()}
     }
 
 }

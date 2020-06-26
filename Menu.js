@@ -1,11 +1,11 @@
 class Menu{
     constructor(){
         this.playButton = createImg('image/play.png')
-        this.howTo = createButton('how to play')
+        this.howTo = createImg('image/howTo.png')
     }
     display()
     {   background(backgroundImg)
-        this.playButton.position(displayWidth/2-100,displayHeight/2-150)
+        this.playButton.position(displayWidth/2-100,displayHeight/2-250)
         this.playButton.mousePressed(()=>
         {
             backToMenu = createImg('Image/backButton.png')
@@ -21,10 +21,10 @@ class Menu{
             })
             this.playButton.hide()
             this.howTo.hide()
-            levels = new Levels()
             gameState = 1
+            levels = new Levels()
         })
-        this.howTo.position(displayWidth/2-100,displayHeight/2+300)
+        this.howTo.position(displayWidth/2-100,displayHeight/2+150)
         this.howTo.mousePressed(()=>
         {
             var backButton = createImg('Image/backButton.png')
