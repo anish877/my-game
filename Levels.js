@@ -37,6 +37,16 @@ class Levels
        this.l1button.mousePressed(()=>
        {
             this.hide()
+            joystick1 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                baseX: 200,
+                baseY: 200,
+                stickRadius	: 50
+            })
+            upButton1 = createButton('up')
+            upButton1.position(displayWidth-200,displayHeight-100)
             playerLevel1 = new Player(displayWidth/2-600,displayHeight/2-90,80,80)
             whiteGroundLevel1 = new WhiteGround(displayWidth/2+400,displayHeight/2+30,displayWidth/2+60,20)
             blackGroundLevel1 = new BlackGround(displayWidth/2-320,displayHeight/2+30,displayWidth/2,20)
@@ -50,6 +60,14 @@ class Levels
        this.l2button.mousePressed(()=>
        {
             this.hide()
+            joystick2 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton2 = createButton('up')
+            upButton2.position(displayWidth-200,displayHeight-100)
             whiteGroundLevel2 = new WhiteGround(displayWidth/2-200,displayHeight/2+100,displayWidth/2+60,20)
             blackGround1Level2 = new BlackGround(displayWidth/2-220,displayHeight/2-100,displayWidth/2,20)
             blackGround2Level2 = new BlackGround(displayWidth/2,displayHeight/2+300,displayWidth,20)
@@ -64,6 +82,14 @@ class Levels
        this.l3button.mousePressed(()=>
        {
         this.hide()
+        joystick3 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
+        upButton3 = createButton('up')
+        upButton3.position(displayWidth-200,displayHeight-100)
         whiteGround1Level3 = new WhiteGround(displayWidth/2-500,displayHeight/2+300,300,300)
         whiteGround2Level3 = new WhiteGround(displayWidth/2+500,displayHeight/2+300,300,300)
         blackGroundLevel3 = new BlackGround(displayWidth/2,displayHeight/2+300,300,300)
@@ -78,6 +104,14 @@ class Levels
         this.l4button.mousePressed(()=>
         {
             this.hide()
+            joystick4 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton4 = createButton('up')
+            upButton4.position(displayWidth-200,displayHeight-100)
             blackGround1Level4 = new BlackGround(displayWidth/2 + 3,displayHeight/2,displayWidth-600,20)
             blackGround2Level4 = new BlackGround(displayWidth/2+203,displayHeight/2-300,displayWidth-200,20)
             blackGround3Level4 = new BlackGround(displayWidth/2-370,displayHeight/2-150,20,300)
@@ -96,6 +130,14 @@ class Levels
         this.l5button.mousePressed(()=>
         {
             this.hide()
+            joystick5 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton5 = createButton('up')
+            upButton5.position(displayWidth-200,displayHeight-100)
             blackGround1Level5 = new BlackGround(displayWidth/2,100,displayWidth-400,100)
             blackGround2Level5 = new BlackGround(displayWidth/2,displayHeight,displayWidth-400,200) 
             blackGround3Level5 = new BlackGround(280,250,160,200)
@@ -113,6 +155,14 @@ class Levels
         this.l6button.position(200,400)
         this.l6button.mousePressed(()=>{
           this.hide()
+          joystick6 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
+        upButton6 = createButton('up')
+        upButton6.position(displayWidth-200,displayHeight-100)
           blackGround1Level6 = new BlackGround(displayWidth/2-400,displayHeight,300,150)
           blackGround2Level6 = new BlackGround(displayWidth-100,displayHeight/2+180,300,600)
           whiteGround1Level6 = new WhiteGround(displayWidth/2-50,displayHeight-50,80,300)
@@ -128,6 +178,12 @@ class Levels
         this.l7button.mousePressed(()=>
         {
            this.hide()
+           joystick7 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
            blackGround1Level7 = new BlackGround(displayWidth/2-140,displayHeight/2,150,400)
            blackGround2Level7 = new BlackGround(displayWidth/2+10,displayHeight/2+37.5,150,325)
            blackGround3Level7 = new BlackGround(displayWidth/2+160,displayHeight/2+87.5,150,225) 
@@ -150,6 +206,14 @@ class Levels
         this.l8button.mousePressed(()=>
         {
             this.hide()
+            joystick8 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton8 = createButton('up')
+            upButton8.position(displayWidth-200,displayHeight-100)
             blackGround1Level8 = new BlackGround(displayWidth/2-400,displayHeight-100,70,10)
             blackGround2Level8 = new BlackGround(displayWidth/2-400,displayHeight-400,70,10)
             blackGround3Level8 = new BlackGround(displayWidth/2+500,displayHeight-100,400,70)
@@ -166,6 +230,14 @@ class Levels
         this.l9button.mousePressed(()=>
         {
             this.hide()
+            joystick9 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton9 = createButton('up')
+            upButton9.position(displayWidth-200,displayHeight-100)
             blackGround1Level9 = new BlackGround(displayWidth/2,displayHeight/2+300,displayWidth,displayHeight/2)
             blackGround2Level9 = new BlackGround(displayWidth/2,200,400,600)
             playerLevel9 = new Player(40,displayHeight/2,80,80)
@@ -179,6 +251,14 @@ class Levels
         this.l10button.mousePressed(()=>
         {
             this.hide()
+            joystick10 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton10 = createButton('up')
+            upButton10.position(displayWidth-200,displayHeight-100)
             blackGround1Level10 = new BlackGround(displayWidth/2-400,displayHeight/2,80,200)
             blackGround2Level10 = new BlackGround(displayWidth/2+200,displayHeight/2-200,80,80)
             blackGround3Level10 = new BlackGround(displayWidth/2+400,displayHeight/2-100,80,100)
@@ -196,6 +276,14 @@ class Levels
         this.l11button.mousePressed(()=>
         {
             this.hide()
+            joystick11 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton11 = createButton('up')
+            upButton11.position(displayWidth-200,displayHeight-100)
             blackGround1Level11 = new BlackGround(displayWidth/2-600,displayHeight-100,70,70)
             blackGround2Level11 = new BlackGround(displayWidth/2-600,displayHeight-400,70,70)
             blackGround3Level11 = new BlackGround(displayWidth/2-100,displayHeight-550,70,70)
@@ -216,6 +304,14 @@ class Levels
         this.l12button.position(400,600)
         this.l12button.mousePressed(()=>{
             this.hide()
+            joystick12 = new VirtualJoystick({
+                mouseSupport	: true,
+                limitStickTravel: true,
+                strokeStyle	: 'grey',
+                stickRadius	: 50
+            })
+            upButton12 = createButton('up')
+            upButton12.position(displayWidth-200,displayHeight-100)
             blackGround1Level12 = new BlackGround(displayWidth/2,displayHeight/2-200,260,20)
             blackGround2Level12 = new BlackGround(displayWidth/2,displayHeight/2+185,450,250)
             blackGround3Level12 = new BlackGround()
@@ -232,6 +328,14 @@ class Levels
         this.l13button.position(600,600)
         this.l13button.mousePressed(()=>{
         this.hide()
+        joystick13 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
+        upButton13 = createButton('up')
+        upButton13.position(displayWidth-200,displayHeight-100)
         blackGround1Level13 = new BlackGround(displayWidth/2-400,displayHeight/2+50,100,140)
         blackGround2Level13 = new BlackGround(displayWidth/2-100,displayHeight/2+120,40,250)
         blackGround3Level13 = new BlackGround(displayWidth/2+50,displayHeight/2+80,60,250)
@@ -250,6 +354,14 @@ class Levels
         this.l14button.position(800,600)
         this.l14button.mousePressed(()=>{
         this.hide()
+        joystick14 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
+        upButton14 = createButton('up')
+        upButton14.position(displayWidth-200,displayHeight-100)
         blackGround1Level14 = new BlackGround(displayWidth/2-400,displayHeight/2+200,200,100)
         blackGround2Level14 = new BlackGround(displayWidth/2-325,displayHeight/2+50,50,200)
         blackGround3Level14 = new BlackGround(displayWidth/2-225,displayHeight/2-100,250,100)
@@ -270,6 +382,14 @@ class Levels
         })
     }
     l15(){
+        joystick15 = new VirtualJoystick({
+            mouseSupport	: true,
+            limitStickTravel: true,
+            strokeStyle	: 'grey',
+            stickRadius	: 50
+        })
+        upButton15 = createButton('up')
+        upButton15.position(displayWidth-200,displayHeight-100)
         this.l15button.position(1000,600)
         this.l15button.mousePressed(()=>
         {

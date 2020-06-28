@@ -12,6 +12,7 @@ class Star{
         this.height = height;
         //Matter.Body.setMass(this.body, this.body.mass*4)
         this.animation = starAnimation
+        this.animation2 = starAnimationWhite
         //this.image = loadImage('Image/playerRight.png')
         World.add(world, this.body);
       }
@@ -21,8 +22,14 @@ class Star{
         strokeWeight(5)
         fill(235,235,235)
         //rectMode(CENTER);
+        if(backColor===0){
         animation(this.animation,this.body.position.x,this.body.position.y, this.width, this.height);
+        }
+        if(backColor===1)
+        {
+            animation(this.animation2,this.body.position.x,this.body.position.y, this.width, this.height);
 
+        }
     }
  
 }

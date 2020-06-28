@@ -8,9 +8,42 @@ var back
 var backColor = 0
 var level = 0
 var c
+var rightButton
 var winImage
+var starAnimation
+var starAnimationWhite
 var gameState1 = "level" 
 var menu
+var upButton1
+var upButton2
+var upButton3
+var upButton4
+var upButton5
+var upButton6
+var upButton7
+var upButton8
+var upButton9
+var upButton10
+var upButton11
+var upButton12
+var upButton13
+var upButton14
+var upButton15
+var joystick1
+var joystick2
+var joystick3
+var joystick4
+var joystick5
+var joystick6
+var joystick7
+var joystick8
+var joystick9
+var joystick10
+var joystick11
+var joystick12
+var joystick13
+var joystick14
+var joystick15
 var levels
 var particles = []
 var backToMenu
@@ -198,6 +231,7 @@ function preload()
     backgroundImg = loadImage('Image/background.png')
     playerAnimation = loadAnimation('Image/player1.png','Image/player2.png','Image/player3.png')
     starAnimation = loadAnimation('Image/star1.png','Image/star2.png','Image/star3.png','Image/star4.png','Image/star5.png')
+    starAnimationWhite = loadAnimation('Image/star1White.png','Image/star2White.png','Image/star3White.png','Image/star4White.png','Image/star5White.png')
     playerRightImg = loadImage('Image/playerRight.png')
     playerLeftImg = loadImage('Image/playerLeft.png')
     playerWhiteLeft = loadImage('Image/playerWhiteLeft.png')
@@ -222,6 +256,7 @@ async function draw()
 {
     background(back);
     Engine.update(engine);
+
     if(gameState===0)
     {
         menu.display()
@@ -651,7 +686,11 @@ async function draw()
         particles.push(new Particle(playerLevel1.body.position.x+30,random(playerLevel1.body.position.y+30,playerLevel1.body.position.y-30)))
         playerLevel1.moveLeft()
     }
-
+    joyControl(joystick1,playerLevel1)
+    upButton1.mousePressed(()=>{
+        playerLevel1.moveUp()
+    })
+    console.log(playerLevel1.body.speed)
     playerLevel1.display()
     whiteGroundLevel1.display()
     blackGroundLevel1.display()
@@ -671,6 +710,7 @@ async function draw()
       World.remove(world,blackGroundLevel1.body)
       World.remove(world,playerLevel1.body)
       World.remove(world,starLevel1.body)
+      upButton1.hide()
     backToMenu = createImg('Image/backButton.png')
     backToMenu.position(30,30)
     backToMenu.mousePressed(()=>
@@ -714,7 +754,10 @@ async function draw()
         particles.push(new Particle(playerLevel2.body.position.x+30,random(playerLevel2.body.position.y+30,playerLevel2.body.position.y-30)))
         playerLevel2.moveLeft()
     }
-
+    joyControl(joystick2,playerLevel2)
+    upButton2.mousePressed(()=>{
+        playerLevel2.moveUp()
+    })
      whiteGroundLevel2.display()
      blackGround1Level2.display()
      blackGround2Level2.display()
@@ -780,7 +823,10 @@ async function draw()
             particles.push(new Particle(playerLevel3.body.position.x+30,random(playerLevel3.body.position.y+30,playerLevel3.body.position.y-30)))
             playerLevel3.moveLeft()
         }
-
+        joyControl(joystick3,playerLevel3)
+        upButton3.mousePressed(()=>{
+            playerLevel3.moveUp()
+        })
          whiteGround1Level3.display()
          blackGroundLevel3.display()
          whiteGround2Level3.display()
@@ -847,7 +893,10 @@ async function draw()
             particles.push(new Particle(playerLevel4.body.position.x+30,random(playerLevel4.body.position.y+30,playerLevel4.body.position.y-30)))
             playerLevel4.moveLeft()
         }
-
+        joyControl(joystick4,playerLevel4)
+        upButton4.mousePressed(()=>{
+            playerLevel4.moveUp()
+        })
          whiteGround1Level4.display()
          blackGround1Level4.display()
          blackGround2Level4.display()
@@ -918,7 +967,10 @@ async function draw()
             particles.push(new Particle(playerLevel5.body.position.x+30,random(playerLevel5.body.position.y+30,playerLevel5.body.position.y-30)))
             playerLevel5.moveLeft()
         }
-
+        joyControl(joystick5,playerLevel5)
+        upButton5.mousePressed(()=>{
+            playerLevel5.moveUp()
+        })
         blackGround1Level5.display()
         blackGround2Level5.display()
         blackGround3Level5.display()
@@ -995,6 +1047,10 @@ async function draw()
             particles.push(new Particle(playerLevel6.body.position.x+30,random(playerLevel6.body.position.y+30,playerLevel6.body.position.y-30)))
             playerLevel6.moveLeft()
         }
+        joyControl(joystick6,playerLevel6)
+        upButton6.mousePressed(()=>{
+            playerLevel6.moveUp()
+        })
          blackGround1Level6.display()
          blackGround2Level6.display()
          whiteGround2Level6.display()
@@ -1067,6 +1123,10 @@ async function draw()
             particles.push(new Particle(playerLevel7.body.position.x+30,random(playerLevel7.body.position.y+30,playerLevel7.body.position.y-30)))
             playerLevel7.moveLeft()
         }
+        joyControl(joystick7,playerLevel7)
+        upButton7.mousePressed(()=>{
+            playerLevel7.moveUp()
+        })
         blackGround1Level7.display()
         blackGround2Level7.display()
         blackGround3Level7.display()
@@ -1148,6 +1208,10 @@ async function draw()
             particles.push(new Particle(playerLevel8.body.position.x+30,random(playerLevel8.body.position.y+30,playerLevel8.body.position.y-30)))
             playerLevel8.moveLeft()
         }
+        joyControl(joystick8,playerLevel8)
+        upButton8.mousePressed(()=>{
+            playerLevel8.moveUp()
+        })
         blackGround1Level8.display()
         blackGround2Level8.display()
         blackGround3Level8.display()
@@ -1202,6 +1266,10 @@ async function draw()
     }
     if(level===9)
     {
+        joyControl(joystick9,playerLevel9)
+        upButton9.mousePressed(()=>{
+            playerLevel9.moveUp()
+        })
        blackGround1Level9.display()
        blackGround2Level9.display()
        playerLevel9.display()
@@ -1275,6 +1343,10 @@ async function draw()
             particles.push(new Particle(playerLevel10.body.position.x+30,random(playerLevel10.body.position.y+30,playerLevel10.body.position.y-30)))
             playerLevel10.moveLeft()
         }
+        joyControl(joystick10,playerLevel10)
+        upButton10.mousePressed(()=>{
+            playerLevel10.moveUp()
+        })
         blackGround1Level10.display()
         blackGround2Level10.display()
         blackGround3Level10.display()
@@ -1347,6 +1419,10 @@ async function draw()
             particles.push(new Particle(playerLevel11.body.position.x+30,random(playerLevel11.body.position.y+30,playerLevel11.body.position.y-30)))
             playerLevel11.moveLeft()
         }
+        joyControl(joystick11,playerLevel11)
+        upButton11.mousePressed(()=>{
+            playerLevel11.moveUp()
+        })
         blackGround1Level11.display()
         blackGround2Level11.display()
         blackGround3Level11.display()
@@ -1425,6 +1501,10 @@ async function draw()
             particles.push(new Particle(playerLevel12.body.position.x+30,random(playerLevel12.body.position.y+30,playerLevel12.body.position.y-30)))
             playerLevel12.moveLeft()
         }
+        joyControl(joystick12,playerLevel12)
+        upButton12.mousePressed(()=>{
+            playerLevel12.moveUp()
+        })
         blackGround1Level12.display()
         blackGround2Level12.display()
         whiteGround1Level12.display()
@@ -1493,6 +1573,10 @@ async function draw()
                 particles.push(new Particle(playerLevel13.body.position.x+30,random(playerLevel13.body.position.y+30,playerLevel13.body.position.y-30)))
                 playerLevel13.moveLeft()
             }
+            joyControl(joystick13,playerLevel13)
+            upButton13.mousePressed(()=>{
+                playerLevel13.moveUp()
+            })
             blackGround1Level13.display()
             blackGround2Level13.display()
             blackGround3Level13.display()
@@ -1569,6 +1653,10 @@ async function draw()
                 particles.push(new Particle(playerLevel14.body.position.x+30,random(playerLevel14.body.position.y+30,playerLevel14.body.position.y-30)))
                 playerLevel14.moveLeft()
             }
+            joyControl(joystick14,playerLevel14)
+            upButton14.mousePressed(()=>{
+                playerLevel14.moveUp()
+            })
             blackGround1Level14.display()
             blackGround2Level14.display()
             blackGround3Level14.display()
@@ -1647,6 +1735,10 @@ async function draw()
                 particles.push(new Particle(playerLevel15.body.position.x+30,random(playerLevel15.body.position.y+30,playerLevel15.body.position.y-30)))
                 playerLevel15.moveLeft()
             }
+            joyControl(joystick15,playerLevel15)
+            upButton15.mousePressed(()=>{
+                playerLevel15.moveUp()
+            })
             blackGround1Level15.display()
             blackGround2Level15.display()
             blackGround3Level15.display()
@@ -2449,8 +2541,9 @@ class Particle {
       this.vy = random(-2,0)
       this.vx = random(-1,1)
       this.alpha = 255
-      this.width = 10
-      this.height = 10
+      var y = random(1,10)
+      this.width = y
+      this.height = y
     }
     finished(){
       return this.alpha<0
@@ -2466,13 +2559,20 @@ class Particle {
     {
       this.x += this.vy
       this.y += this.vx 
-      this.alpha -= 13
+      this.alpha -= 7
       this.width -= 0.5
       this.height -= 0.5
     }
     }
 
-
-
-
+function joyControl(joystick,player){
+    if( joystick.right() ){
+        particles.push(new Particle(player.body.position.x-30,random(player.body.position.y+30,player.body.position.y-30)))
+        player.moveRight()   
+		}
+		if( joystick.left() ){
+            particles.push(new Particle(player.body.position.x+30,random(player.body.position.y+30,player.body.position.y-30)))
+            player.moveLeft()    
+		}
+}
 
