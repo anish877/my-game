@@ -5,7 +5,31 @@ class Menu{
     }
     display()
     {   background(backgroundImg)
-        this.playButton.position(displayWidth/2-100,displayHeight/2-250)
+        if(displayText===1)
+        {
+        strokeWeight(5)
+        stroke("black")
+        textSize(102)
+        textFont(myFont)
+        if(frameCount%50===0)
+        {
+            if(fontColor%2===0)
+            {
+                c1 = (235,235,235)
+                c2 = (51,51,51)
+            }
+            else
+            {
+                c1= (51,51,51)
+                c2 = (235,235,235)
+            }
+            fontColor += 1
+        }
+        fill(c1)
+        text("SWI",displayWidth/2-265,100)
+        fill(c2)
+        text("TCH",displayWidth/2-25,100)}
+        this.playButton.position(displayWidth/2-100,displayHeight/2-200)
         this.playButton.mousePressed(()=>
         {
             backToMenu = createImg('Image/backButton.png')
@@ -24,26 +48,26 @@ class Menu{
             gameState = 1
             levels = new Levels()
         })
-        this.howTo.position(displayWidth/2-100,displayHeight/2+150)
+        this.howTo.position(displayWidth/2-100,displayHeight/2+100)
+        //  form = loadImage('Image/form.png')
         this.howTo.mousePressed(()=>
-        {
+        {   displayText = 0
             var backButton = createImg('Image/backButton.png')
+            var formButton = createImg('Image/form.png')
+            var form2Button = createImg('Image/form2.png')
+            form2Button.position(displayWidth/2+250,displayHeight/2-150)
+            formButton.position(displayWidth/2-600,displayHeight/2-350)
+            // console.log(form)
             backButton.position(30,30)
+            // image(form,100,100)
             backButton.mousePressed(()=>
             {
-                howToPlay.hide()
+                formButton.hide()
+                form2Button.hide()
                 backButton.hide()
                 menu = new Menu()
+                displayText = 1
             })
-            var howToPlay = createElement('h3')
-            stroke("yellow")
-            strokeWeight(5)
-            howToPlay.html('HOW TO PLAY')
-            howToPlay.position(displayWidth/2,displayHeight/2)
-            fill("black")
-            textSize('32')
-            text('HOW TO PLAY',200,200)
-            text('gfrgrg',displayWidth/2,displayHeight/2);
             this.howTo.hide()
             this.playButton.hide()
         })

@@ -8,12 +8,40 @@ var back
 var backColor = 0
 var level = 0
 var c
+var c1
+var c2
+var c3
+var displayText
 var rightButton
 var winImage
 var starAnimation
 var starAnimationWhite
 var gameState1 = "level" 
 var menu
+var myFont
+var form
+var fontColor
+var jumpSound
+var backSound
+var levelUpSound
+var gameOverSound
+var deathSound
+var deathValue = 0
+var switchButton1
+var switchButton2
+var switchButton3
+var switchButton4
+var switchButton5
+var switchButton6
+var switchButton7
+var switchButton8
+var switchButton9
+var switchButton10
+var switchButton11
+var switchButton12
+var switchButton13
+var switchButton14
+var switchButton15
 var upButton1
 var upButton2
 var upButton3
@@ -49,6 +77,8 @@ var particles = []
 var backToMenu
 var animate = 0
 var playerMode = "right"
+var deathWhite
+var deathBlack
 var level2Img
 var level3Img
 var level4Img
@@ -228,6 +258,10 @@ function preload()
 {
     back = color(255,255,255)
     c = (51,51,51)
+    c1= (51,51,51)
+    c2 = (235,235,235)
+    fontColor = 2
+    displayText = 1
     backgroundImg = loadImage('Image/background.png')
     playerAnimation = loadAnimation('Image/player1.png','Image/player2.png','Image/player3.png')
     starAnimation = loadAnimation('Image/star1.png','Image/star2.png','Image/star3.png','Image/star4.png','Image/star5.png')
@@ -250,13 +284,20 @@ function preload()
     level13Img = loadImage('Image/level13Locked.png')
     level14Img = loadImage('Image/level14Locked.png')
     level15Img = loadImage('Image/level15Locked.png')
+    deathWhite = loadImage('Image/deathWhite.png')
+    deathBlack = loadImage('Image/deathBlack.png')
+    myFont = loadFont('FONTS/joystix monospace.ttf')
+    jumpSound = loadSound('fx/jumpSound.mp3')
+    backSound = loadSound('fx/backSound.mp3')
+    levelUpSound = loadSound('fx/levelComplete.mp3')
+    gameOverSound = loadSound('fx/gameOver.mp3')
+    deathSound = loadSound('fx/death.mp3')
 }
 
 async function draw()
 {
     background(back);
     Engine.update(engine);
-
     if(gameState===0)
     {
         menu.display()
@@ -667,6 +708,11 @@ async function draw()
         // image(level15Img,1000,600)
         }
     }
+    if(gameState>0)
+    {
+        showDeathValue()
+        
+    }
     if(level===1)
     {
 
@@ -689,12 +735,80 @@ async function draw()
     joyControl(joystick1,playerLevel1)
     upButton1.mousePressed(()=>{
         playerLevel1.moveUp()
+        jumpSound.play()
     })
-    console.log(playerLevel1.body.speed)
+    switchButton1.mousePressed(async()=>{
+        if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel1.image = playerWhiteRight
+            }
+            else{
+             playerLevel1.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGroundLevel1.body)
+            await World.add(world,whiteGroundLevel1.body)
+            backColor = 1
+            
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel1.image = playerRightImg
+            }
+            else{
+             playerLevel1.image = playerLeftImg
+            }
+            await World.remove(world,whiteGroundLevel1.body)
+            await World.add(world,blackGroundLevel1.body)
+            backColor = 0
+        }
+    })
     playerLevel1.display()
     whiteGroundLevel1.display()
     blackGroundLevel1.display()
     starLevel1.display()
+    if(deathValue===10)
+    {
+        gameOverSound.play()
+        textSize(72)
+        textFont(myFont)
+        text("GAME OVER",displayWidth/2-300,displayHeight/2)
+        World.remove(world,whiteGroundLevel1.body)
+        World.remove(world,blackGroundLevel1.body)
+        World.remove(world,playerLevel1.body)
+        World.remove(world,starLevel1.body)
+        upButton1.hide()
+        switchButton1.hide()
+        backToMenu = createImg('Image/backButton.png')
+    backToMenu.position(30,30)
+    backToMenu.mousePressed(()=>
+    {
+        backToMenu.hide()
+        menu.playButton.hide()
+        menu.howTo.hide()
+        levels.hide()
+        gameState=0
+        menu = new Menu()
+    })
+        gameState=1
+        gameState1 = 'level'
+      levels = new Levels()
+      back = color(255,255,255)
+      c = (51,51,51)
+      particles = []
+      backColor = 0
+      level = 0
+      deathValue = 0
+    }
     for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -706,11 +820,13 @@ async function draw()
     playerLevel1Collided = Matter.SAT.collides(playerLevel1.body,starLevel1.body)
     if(playerLevel1Collided.collided)
     {
+      levelUpSound.play()
       World.remove(world,whiteGroundLevel1.body)
       World.remove(world,blackGroundLevel1.body)
       World.remove(world,playerLevel1.body)
       World.remove(world,starLevel1.body)
       upButton1.hide()
+      switchButton1.hide()
     backToMenu = createImg('Image/backButton.png')
     backToMenu.position(30,30)
     backToMenu.mousePressed(()=>
@@ -733,7 +849,9 @@ async function draw()
       level = 0
     }
     if(playerLevel1.body.position.y>displayHeight)
-    {   World.remove(world,playerLevel1)
+    {   deathSound.play()
+        World.remove(world,playerLevel1)
+        deathValue += 1
         playerLevel1 = new Player(displayWidth/2-600,displayHeight/2-90,80,80)
     }
     }
@@ -757,12 +875,84 @@ async function draw()
     joyControl(joystick2,playerLevel2)
     upButton2.mousePressed(()=>{
         playerLevel2.moveUp()
+        jumpSound.play()
     })
+    switchButton2.mousePressed(async()=>{
+        if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel2.image = playerWhiteRight
+            }
+            else{
+             playerLevel2.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround2Level2.body)
+            await World.remove(world,blackGround1Level2.body)
+            await World.add(world,whiteGroundLevel2.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel2.image = playerRightImg
+            }
+            else{
+             playerLevel2.image = playerLeftImg
+            }
+            await World.remove(world,whiteGroundLevel2.body)
+            await World.add(world,blackGround1Level2.body)
+            await World.add(world,blackGround2Level2.body)
+            backColor = 0
+        } 
+    })
+    showDeathValue()
      whiteGroundLevel2.display()
      blackGround1Level2.display()
      blackGround2Level2.display()
      playerLevel2.display()
      starLevel2.display()
+     if(deathValue===10)
+     {
+         
+        textSize(72)
+        textFont(myFont)
+        text("GAME OVER",displayWidth/2-300,displayHeight/2)
+        World.remove(world,whiteGroundLevel2.body)
+        World.remove(world,blackGround1Level2.body)
+        World.remove(world,blackGround2Level2.body)
+        World.remove(world,playerLevel2.body)
+        World.remove(world,starLevel2.body)
+        backToMenu = createImg('Image/backButton.png')
+        backToMenu.position(30,30)
+        backToMenu.mousePressed(()=>
+        {
+            backToMenu.hide()
+            menu.playButton.hide()
+            menu.howTo.hide()
+            levels.hide()
+            gameState=0
+            menu = new Menu()
+        })
+        upButton2.hide()
+        switchButton2.hide()
+        gameState=1
+        gameState1 = 'level'
+        levels = new Levels()
+        back = color(255,255,255)
+        c = (51,51,51)
+        particles = []
+        backColor = 0
+        level = 0
+        deathValue = 0
+     }
      for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -774,11 +964,14 @@ async function draw()
      playerLevel2Collided = Matter.SAT.collides(playerLevel2.body,starLevel2.body)
      if(playerLevel2Collided.collided)
      {
+        levelUpSound.play()
        World.remove(world,whiteGroundLevel2.body)
        World.remove(world,blackGround1Level2.body)
        World.remove(world,blackGround2Level2.body)
        World.remove(world,playerLevel2.body)
        World.remove(world,starLevel2.body)
+       upButton2.hide()
+       switchButton2.hide()
        backToMenu = createImg('Image/backButton.png')
        backToMenu.position(30,30)
        backToMenu.mousePressed(()=>
@@ -802,6 +995,7 @@ async function draw()
      }
      if(playerLevel2.body.position.y>displayHeight+40)
      {  World.remove(world,playerLevel2)
+        deathValue += 1
          playerLevel2 = new Player(displayWidth/2,displayHeight/2 - 120,80,80)
      }
     }
@@ -826,12 +1020,82 @@ async function draw()
         joyControl(joystick3,playerLevel3)
         upButton3.mousePressed(()=>{
             playerLevel3.moveUp()
+            jumpSound.play()
         })
+        switchButton3.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel3.image = playerWhiteRight
+            }
+            else{
+             playerLevel3.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGroundLevel3.body)
+            await World.add(world,whiteGround1Level3.body)
+            await World.add(world,whiteGround2Level3.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel3.image = playerRightImg
+            }
+            else{
+             playerLevel3.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level3.body)
+            await World.remove(world,whiteGround2Level3.body)
+            await World.add(world,blackGroundLevel3.body)
+            backColor = 0
+        }
+        })
+        showDeathValue()
          whiteGround1Level3.display()
          blackGroundLevel3.display()
          whiteGround2Level3.display()
          playerLevel3.display()
          starLevel3.display()
+         if(deathValue===10)
+         {
+
+            World.remove(world,whiteGround1Level3.body)
+            World.remove(world,blackGroundLevel3.body)
+            World.remove(world,whiteGround2Level3.body)
+            World.remove(world,playerLevel3.body)
+            World.remove(world,starLevel3.body)
+            upButton3.hide()
+            switchButton3.hide()
+            
+        backToMenu = createImg('Image/backButton.png')
+        backToMenu.position(30,30)
+        backToMenu.mousePressed(()=>
+        {
+            backToMenu.hide()
+            menu.playButton.hide()
+            menu.howTo.hide()
+            levels.hide()
+            gameState=0
+            menu = new Menu()
+        })
+        gameState=1
+        gameState1 = 'level'
+        levels = new Levels()
+        back = color(255,255,255)
+        c = (51,51,51)
+        particles = []
+        backColor = 0
+        level = 0
+        deathValue = 0
+         }
          for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -843,12 +1107,14 @@ async function draw()
          playerLevel3Collided = Matter.SAT.collides(playerLevel3.body,starLevel3.body)
          if(playerLevel3Collided.collided)
          {
+            levelUpSound.play()
            World.remove(world,whiteGround1Level3.body)
            World.remove(world,blackGroundLevel3.body)
            World.remove(world,whiteGround2Level3.body)
            World.remove(world,playerLevel3.body)
            World.remove(world,starLevel3.body)
-           
+           upButton3.hide()
+           switchButton3.hide()
            backToMenu = createImg('Image/backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
@@ -872,6 +1138,7 @@ async function draw()
          }
          if(playerLevel3.body.position.y>displayHeight+40)
          {  World.remove(world,playerLevel3)
+            deathValue += 1
              playerLevel3 = new Player(displayWidth/2-500,0 + 20,80,80)
          }
     }
@@ -896,7 +1163,53 @@ async function draw()
         joyControl(joystick4,playerLevel4)
         upButton4.mousePressed(()=>{
             playerLevel4.moveUp()
+            jumpSound.play()
         })
+        switchButton4.mousePressed(async()=>{
+            if(backColor===0)
+            {
+             
+                back = color(51,51,51)
+                c = (235,235,235)
+                if(playerMode==="right")
+                {
+                playerLevel4.image = playerWhiteRight
+                }
+                else{
+                 playerLevel4.image = playerWhiteLeft
+                }
+                await World.remove(world,blackGround1Level4.body)
+                await World.remove(world,blackGround2Level4.body)
+                await World.remove(world,blackGround3Level4.body)
+                await World.remove(world,blackGround4Level4.body)
+                await World.remove(world,blackGround5Level4.body)
+                await World.add(world,whiteGround1Level4.body)
+                await World.add(world,whiteGround2Level4.body)
+                backColor = 1
+            }
+            else
+            {
+    
+                back = color(255,255,255)
+                c = (51,51,51)
+                if(playerMode==="right")
+                {
+                playerLevel4.image = playerRightImg
+                }
+                else{
+                 playerLevel4.image = playerLeftImg
+                }
+                await World.remove(world,whiteGround1Level4.body)
+                await World.remove(world,whiteGround2Level4.body)
+                await World.add(world,blackGround1Level4.body)
+                await World.add(world,blackGround2Level4.body)
+                await World.add(world,blackGround3Level4.body)
+                await World.add(world,blackGround4Level4.body)
+                await World.add(world,blackGround5Level4.body)
+                backColor = 0
+            } 
+        })
+        showDeathValue()
          whiteGround1Level4.display()
          blackGround1Level4.display()
          blackGround2Level4.display()
@@ -906,6 +1219,41 @@ async function draw()
          whiteGround2Level4.display()
          playerLevel4.display()
          starLevel4.display()
+         if(deathValue===10)
+         {
+            World.remove(world,whiteGround1Level4.body)
+            World.remove(world,blackGround1Level4.body)
+            World.remove(world,blackGround2Level4.body)
+            World.remove(world,blackGround3Level4.body)
+            World.remove(world,blackGround4Level4.body)
+            World.remove(world,blackGround5Level4.body)
+            World.remove(world,whiteGround2Level4.body)
+            World.remove(world,playerLevel4.body)
+            World.remove(world,starLevel4.body)
+            upButton4.hide()
+            switchButton4.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+
+         }
          for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -917,6 +1265,7 @@ async function draw()
          playerLevel4Collided = Matter.SAT.collides(playerLevel4.body,starLevel4.body)
          if(playerLevel4Collided.collided)
          {
+            levelUpSound.play()
            World.remove(world,whiteGround1Level4.body)
            World.remove(world,blackGround1Level4.body)
            World.remove(world,blackGround2Level4.body)
@@ -926,6 +1275,8 @@ async function draw()
            World.remove(world,whiteGround2Level4.body)
            World.remove(world,playerLevel4.body)
            World.remove(world,starLevel4.body)
+           upButton4.hide()
+           switchButton4.hide()
            backToMenu = createImg('Image/backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
@@ -950,6 +1301,7 @@ async function draw()
          if(playerLevel4.body.position.y>displayHeight+40)
          {
              World.remove(world,playerLevel4)
+             deathValue += 1
              playerLevel4 = new Player(80,displayWidth/2-20,80,80)
          }
 
@@ -970,7 +1322,53 @@ async function draw()
         joyControl(joystick5,playerLevel5)
         upButton5.mousePressed(()=>{
             playerLevel5.moveUp()
+            jumpSound.play()
         })
+        switchButton5.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel5.image = playerWhiteRight
+            }
+            else{
+             playerLevel5.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level5.body)
+            await World.remove(world,blackGround2Level5.body)
+            await World.remove(world,blackGround3Level5.body)
+            await World.remove(world,blackGround4Level5.body)
+            await World.remove(world,blackGround5Level5.body)
+            await World.remove(world,blackGround6Level5.body)
+            await World.remove(world,blackGround7Level5.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel5.image = playerRightImg
+            }
+            else{
+             playerLevel5.image = playerLeftImg
+            }
+            await World.add(world,blackGround1Level5.body)
+            await World.add(world,blackGround2Level5.body)
+            await World.add(world,blackGround3Level5.body)
+            await World.add(world,blackGround4Level5.body)
+            await World.add(world,blackGround5Level5.body)
+            await World.add(world,blackGround6Level5.body)
+            await World.add(world,blackGround7Level5.body)
+            backColor = 0
+        } 
+        })
+
         blackGround1Level5.display()
         blackGround2Level5.display()
         blackGround3Level5.display()
@@ -980,6 +1378,42 @@ async function draw()
         blackGround7Level5.display()
         playerLevel5.display()
         starLevel5.display()
+        showDeathValue()
+        if(deathValue===10)
+        {
+            World.remove(world,blackGround7Level5.body)
+          World.remove(world,blackGround1Level5.body)
+          World.remove(world,blackGround2Level5.body)
+          World.remove(world,blackGround3Level5.body)
+          World.remove(world,blackGround4Level5.body)
+          World.remove(world,blackGround5Level5.body)
+          World.remove(world,blackGround6Level5.body)
+          World.remove(world,playerLevel5.body)
+          World.remove(world,starLevel5.body)
+          upButton5.hide()
+          switchButton5.hide()
+          backToMenu = createImg('Image/backButton.png')
+          backToMenu.position(30,30)
+          backToMenu.mousePressed(()=>
+          {
+              backToMenu.hide()
+              menu.playButton.hide()
+              menu.howTo.hide()
+              levels.hide()
+              gameState=0
+              menu = new Menu()
+          })
+          
+          gameState=1
+          gameState1 = 'level'
+          levels = new Levels()
+          back = color(255,255,255)
+          c = (51,51,51)
+          particles = []
+          backColor = 0
+          level = 0
+          deathValue = 0
+        }
         for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -992,6 +1426,7 @@ async function draw()
         playerLevel5Collided = Matter.SAT.collides(playerLevel5.body,starLevel5.body)
         if(playerLevel5Collided.collided)
         {
+            levelUpSound.play()
           World.remove(world,blackGround7Level5.body)
           World.remove(world,blackGround1Level5.body)
           World.remove(world,blackGround2Level5.body)
@@ -1001,6 +1436,8 @@ async function draw()
           World.remove(world,blackGround6Level5.body)
           World.remove(world,playerLevel5.body)
           World.remove(world,starLevel5.body)
+          upButton5.hide()
+          switchButton5.hide()
           backToMenu = createImg('Image/backButton.png')
           backToMenu.position(30,30)
           backToMenu.mousePressed(()=>
@@ -1025,6 +1462,7 @@ async function draw()
         if(playerLevel5.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel5)
+            deathValue += 1
             playerLevel5 = new Player(250,displayHeight-250,80,80)
         }
     }
@@ -1050,13 +1488,86 @@ async function draw()
         joyControl(joystick6,playerLevel6)
         upButton6.mousePressed(()=>{
             playerLevel6.moveUp()
+            jumpSound.play()
         })
+        switchButton6.mousePressed(async()=>{
+            if(backColor===0)
+            {
+             
+                back = color(51,51,51)
+                c = (235,235,235)
+                if(playerMode==="right")
+                {
+                playerLevel6.image = playerWhiteRight
+                }
+                else{
+                 playerLevel6.image = playerWhiteLeft
+                }
+                await World.remove(world,blackGround1Level6.body)
+                await World.remove(world,blackGround2Level6.body)
+                await World.add(world,whiteGround1Level6.body)
+                await World.add(world,whiteGround2Level6.body)
+                backColor = 1
+            }
+            else
+            {
+    
+                back = color(255,255,255)
+                c = (51,51,51)
+                if(playerMode==="right")
+                {
+                playerLevel6.image = playerRightImg
+                }
+                else{
+                 playerLevel6.image = playerLeftImg
+                }
+                await World.remove(world,whiteGround1Level6.body)
+                await World.remove(world,whiteGround2Level6.body)
+                await  World.add(world,blackGround1Level6.body)
+                await World.add(world,blackGround2Level6.body)
+                backColor = 0
+            } 
+        })
+        showDeathValue()
          blackGround1Level6.display()
          blackGround2Level6.display()
          whiteGround2Level6.display()
          whiteGround1Level6.display()
          playerLevel6.display()
          starLevel6.display()
+         if(deathValue===10)
+         {
+            World.remove(world,whiteGround1Level6.body)
+            World.remove(world,whiteGround2Level6.body)
+            World.remove(world,blackGround1Level6.body)
+            World.remove(world,blackGround2Level6.body)
+            World.remove(world,playerLevel6.body)
+            World.remove(world,starLevel6.body)
+            upButton6.hide()
+            switchButton6.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+          
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+
+         }
          for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -1068,12 +1579,15 @@ async function draw()
          playerLevel6Collided = Matter.SAT.collides(playerLevel6.body,starLevel6.body)
          if(playerLevel6Collided.collided)
          {
+            levelUpSound.play()
            World.remove(world,whiteGround1Level6.body)
            World.remove(world,whiteGround2Level6.body)
            World.remove(world,blackGround1Level6.body)
            World.remove(world,blackGround2Level6.body)
            World.remove(world,playerLevel6.body)
            World.remove(world,starLevel6.body)
+           upButton6.hide()
+           switchButton6.hide()
            backToMenu = createImg('Image/backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
@@ -1098,6 +1612,7 @@ async function draw()
          if(playerLevel6.body.position.y>displayHeight+40)
          {
              World.remove(world,playerLevel6)
+             deathValue += 1
              playerLevel6 = new Player(displayWidth/2-400,displayHeight-100,80,80)
          }
     }
@@ -1126,7 +1641,61 @@ async function draw()
         joyControl(joystick7,playerLevel7)
         upButton7.mousePressed(()=>{
             playerLevel7.moveUp()
+            jumpSound.play()
         })
+        switchButton7.mousePressed(async()=>{
+            if(backColor===0)
+            {
+             
+                back = color(51,51,51)
+                c = (235,235,235)
+                if(playerMode==="right")
+                {
+                playerLevel7.image = playerWhiteRight
+                }
+                else{
+                 playerLevel7.image = playerWhiteLeft
+                }
+                await World.remove(world,blackGround1Level7.body)
+                await World.remove(world,blackGround2Level7.body)
+                await World.remove(world,blackGround3Level7.body)
+                await World.remove(world,blackGround4Level7.body)
+                await World.remove(world,blackGround5Level7.body)
+                await World.remove(world,blackGround6Level7.body)
+                await World.add(world,whiteGround1Level7.body)
+                await World.add(world,whiteGround2Level7.body)
+                await World.add(world,whiteGround3Level7.body)
+                await World.add(world,whiteGround4Level7.body)
+                await World.add(world,whiteGround5Level7.body)
+                backColor = 1
+            }
+            else
+            {
+    
+                back = color(255,255,255)
+                c = (51,51,51)
+                if(playerMode==="right")
+                {
+                playerLevel7.image = playerRightImg
+                }
+                else{
+                 playerLevel7.image = playerLeftImg
+                }
+                await World.remove(world,whiteGround1Level7.body)
+                await World.remove(world,whiteGround2Level7.body)
+                await World.remove(world,whiteGround3Level7.body)
+                await World.remove(world,whiteGround4Level7.body)
+                await World.remove(world,whiteGround5Level7.body)
+                await World.add(world,blackGround1Level7.body)
+                await World.add(world,blackGround2Level7.body)
+                await World.add(world,blackGround3Level7.body)
+                await World.add(world,blackGround4Level7.body)
+                await World.add(world,blackGround5Level7.body)
+                await World.add(world,blackGround6Level7.body)
+                backColor = 0
+            } 
+        })
+        showDeathValue()
         blackGround1Level7.display()
         blackGround2Level7.display()
         blackGround3Level7.display()
@@ -1140,17 +1709,9 @@ async function draw()
         whiteGround5Level7.display()
         playerLevel7.display()
         starLevel7.display()
-        for(var i = particles.length-1;i>=0;i--)
-    {particles[i].show()
-        particles[i].update()
-        if(particles[i].finished())
+        if(deathValue===10)
         {
-          particles.splice(i,1)
-        }
-    }
-    playerLevel7Collided = Matter.SAT.collides(playerLevel7.body,starLevel7.body)
-    if(playerLevel7Collided.collided)
-    {
+            
             World.remove(world,whiteGround1Level7.body)
             World.remove(world,whiteGround2Level7.body)
             World.remove(world,whiteGround3Level7.body)
@@ -1164,6 +1725,56 @@ async function draw()
             World.remove(world,blackGround6Level7.body)
             World.remove(world,playerLevel7.body)
             World.remove(world,starLevel7.body)
+            upButton7.hide()
+            switchButton7.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+        }
+        for(var i = particles.length-1;i>=0;i--)
+    {particles[i].show()
+        particles[i].update()
+        if(particles[i].finished())
+        {
+          particles.splice(i,1)
+        }
+    }
+    playerLevel7Collided = Matter.SAT.collides(playerLevel7.body,starLevel7.body)
+    if(playerLevel7Collided.collided)
+    {
+        levelUpSound.play()
+            World.remove(world,whiteGround1Level7.body)
+            World.remove(world,whiteGround2Level7.body)
+            World.remove(world,whiteGround3Level7.body)
+            World.remove(world,whiteGround4Level7.body)
+            World.remove(world,whiteGround5Level7.body)
+            World.remove(world,blackGround1Level7.body)
+            World.remove(world,blackGround2Level7.body)
+            World.remove(world,blackGround3Level7.body)
+            World.remove(world,blackGround4Level7.body)
+            World.remove(world,blackGround5Level7.body)
+            World.remove(world,blackGround6Level7.body)
+            World.remove(world,playerLevel7.body)
+            World.remove(world,starLevel7.body)
+            upButton7.hide()
+            switchButton7.hide()
             backToMenu = createImg('Image/backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
@@ -1188,6 +1799,7 @@ async function draw()
         if(playerLevel7.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel7)
+            deathValue += 1
             playerLevel7 = new Player(displayWidth/2-300,displayHeight/2-125,80,80)
         }
     }
@@ -1211,7 +1823,49 @@ async function draw()
         joyControl(joystick8,playerLevel8)
         upButton8.mousePressed(()=>{
             playerLevel8.moveUp()
+            jumpSound.play()
         })
+        switchButton8.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel8.image = playerWhiteRight
+            }
+            else{
+             playerLevel8.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level8.body)
+            await World.remove(world,blackGround2Level8.body)
+            await World.remove(world,blackGround3Level8.body)
+            await World.add(world,whiteGround1Level8.body)
+            await World.add(world,whiteGround2Level8.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel8.image = playerRightImg
+            }
+            else{
+             playerLevel8.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level8.body)
+            await World.remove(world,whiteGround2Level8.body)
+            await World.add(world,blackGround1Level8.body)
+            await World.add(world,blackGround2Level8.body)
+            await World.add(world,blackGround3Level8.body)
+            backColor = 0
+        }   
+        })
+        showDeathValue()
         blackGround1Level8.display()
         blackGround2Level8.display()
         blackGround3Level8.display()
@@ -1219,6 +1873,39 @@ async function draw()
         whiteGround2Level8.display()
         playerLevel8.display()
         starLevel8.display()
+        if(deathValue===10)
+        {
+            World.remove(world,whiteGround1Level8.body)
+            World.remove(world,whiteGround2Level8.body)
+            World.remove(world,blackGround1Level8.body)
+            World.remove(world,blackGround2Level8.body)
+            World.remove(world,blackGround3Level8.body)
+            World.remove(world,playerLevel8.body)
+            World.remove(world,starLevel8.body)
+            upButton8.hide()
+            switchButton8.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+
+        }
         for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -1230,6 +1917,7 @@ async function draw()
     playerLevel8Collided = Matter.SAT.collides(playerLevel8.body,starLevel8.body)
     if(playerLevel8Collided.collided)
     {
+        levelUpSound.play()
             World.remove(world,whiteGround1Level8.body)
             World.remove(world,whiteGround2Level8.body)
             World.remove(world,blackGround1Level8.body)
@@ -1237,6 +1925,8 @@ async function draw()
             World.remove(world,blackGround3Level8.body)
             World.remove(world,playerLevel8.body)
             World.remove(world,starLevel8.body)
+            upButton8.hide()
+            switchButton8.hide()
             backToMenu = createImg('Image/backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
@@ -1261,6 +1951,7 @@ async function draw()
         if(playerLevel8.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel8)
+            deathValue += 1
             playerLevel8 = new Player(displayWidth/2-400,displayHeight-110,80,80)
         }
     }
@@ -1269,11 +1960,77 @@ async function draw()
         joyControl(joystick9,playerLevel9)
         upButton9.mousePressed(()=>{
             playerLevel9.moveUp()
+            jumpSound.play()
         })
+        switchButton9.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel9.image = playerWhiteRight
+            }
+            else{
+             playerLevel9.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level9.body)
+            await World.remove(world,blackGround2Level9.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel9.image = playerRightImg
+            }
+            else{
+             playerLevel9.image = playerLeftImg
+            }
+            await World.add(world,blackGround1Level9.body)
+            await World.add(world,blackGround2Level9.body)
+            backColor = 0
+        }  
+        })
+        showDeathValue()
        blackGround1Level9.display()
        blackGround2Level9.display()
        playerLevel9.display()
        starLevel9.display()
+       if(deathValue===10)
+       {
+        World.remove(world,blackGround1Level9.body)
+        World.remove(world,blackGround2Level9.body)
+        World.remove(world,playerLevel9.body)
+        World.remove(world,starLevel9.body)
+        upButton9.hide()
+        switchButton9.hide()
+        backToMenu = createImg('Image/backButton.png')
+        backToMenu.position(30,30)
+        backToMenu.mousePressed(()=>
+        {
+            backToMenu.hide()
+            menu.playButton.hide()
+            menu.howTo.hide()
+            levels.hide()
+            gameState=0
+            menu = new Menu()
+        })
+        gameState=1
+        gameState1 = 'level'
+        levels = new Levels()
+        back = color(255,255,255)
+        c = (51,51,51)
+        particles = []
+        backColor = 0
+        level = 0
+        deathValue = 0
+
+       }
        for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -1294,10 +2051,13 @@ async function draw()
        playerLevel9Collided = Matter.SAT.collides(playerLevel9.body,starLevel9.body)
        if(playerLevel9Collided.collided)
        {
+        levelUpSound.play()
            World.remove(world,blackGround1Level9.body)
            World.remove(world,blackGround2Level9.body)
            World.remove(world,playerLevel9.body)
            World.remove(world,starLevel9.body)
+           upButton9.hide()
+           switchButton9.hide()
            backToMenu = createImg('Image/backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
@@ -1322,6 +2082,7 @@ async function draw()
        if(playerLevel9.body.position.y>displayHeight+40)
        {
            World.remove(world,playerLevel9)
+           deathValue += 1
            playerLevel9 = new Player(40,displayHeight/2,80,80)
        }
     }
@@ -1346,7 +2107,51 @@ async function draw()
         joyControl(joystick10,playerLevel10)
         upButton10.mousePressed(()=>{
             playerLevel10.moveUp()
+            jumpSound.play()
         })
+        switchButton10.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel10.image = playerWhiteRight
+            }
+            else{
+             playerLevel10.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level10.body)
+            await World.remove(world,blackGround2Level10.body)
+            await World.remove(world,blackGround3Level10.body)
+            await World.add(world,whiteGround1Level10.body)
+            await World.add(world,whiteGround2Level10.body)
+            await World.add(world,whiteGround3Level10.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel10.image = playerRightImg
+            }
+            else{
+             playerLevel10.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level10.body)
+            await World.remove(world,whiteGround2Level10.body)
+            await World.remove(world,whiteGround3Level10.body)
+            await World.add(world,blackGround1Level10.body)
+            await World.add(world,blackGround2Level10.body)
+            await World.add(world,blackGround3Level10.body)
+            backColor = 0
+        } 
+        })
+        showDeathValue()
         blackGround1Level10.display()
         blackGround2Level10.display()
         blackGround3Level10.display()
@@ -1355,6 +2160,40 @@ async function draw()
         whiteGround3Level10.display()
         playerLevel10.display()
         starLevel10.display()
+        if(deathValue===10)
+        {
+            
+            World.remove(world,whiteGround1Level10.body)
+            World.remove(world,whiteGround2Level10.body)
+            World.remove(world,whiteGround3Level10.body)
+            World.remove(world,blackGround1Level10.body)
+            World.remove(world,blackGround2Level10.body)
+            World.remove(world,blackGround3Level10.body)
+            World.remove(world,playerLevel10.body)
+            World.remove(world,starLevel10.body)
+            upButton10.hide()
+            switchButton10.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+        gameState=1
+        gameState1 = 'level'
+        levels = new Levels()
+        back = color(255,255,255)
+        c = (51,51,51)
+        particles = []
+        backColor = 0
+        level = 0
+        deathValue = 0
+        }
         for(var i = particles.length-1;i>=0;i--)
     {particles[i].show()
         particles[i].update()
@@ -1365,6 +2204,7 @@ async function draw()
     }playerLevel10Collided = Matter.SAT.collides(playerLevel10.body,starLevel10.body)
     if(playerLevel10Collided.collided)
     {
+        levelUpSound.play()
             World.remove(world,whiteGround1Level10.body)
             World.remove(world,whiteGround2Level10.body)
             World.remove(world,whiteGround3Level10.body)
@@ -1373,6 +2213,8 @@ async function draw()
             World.remove(world,blackGround3Level10.body)
             World.remove(world,playerLevel10.body)
             World.remove(world,starLevel10.body)
+            upButton10.hide()
+            switchButton10.hide()
             backToMenu = createImg('Image/backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
@@ -1397,6 +2239,7 @@ async function draw()
         if(playerLevel10.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel10)
+            deathValue+=1
             playerLevel10 = new Player(displayWidth/2-400,displayHeight/2-100,80,80)
         }
     }
@@ -1422,7 +2265,59 @@ async function draw()
         joyControl(joystick11,playerLevel11)
         upButton11.mousePressed(()=>{
             playerLevel11.moveUp()
+            jumpSound.play()
         })
+        switchButton11.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel11.image = playerWhiteRight
+            }
+            else{
+             playerLevel11.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level11.body)
+            await World.remove(world,blackGround2Level11.body)
+            await World.remove(world,blackGround3Level11.body)
+            await World.remove(world,blackGround4Level11.body)
+            await World.remove(world,blackGround5Level11.body)
+            await World.remove(world,blackGround6Level11.body)
+            await World.add(world,whiteGround1Level11.body)
+            await World.add(world,whiteGround2Level11.body)
+            await World.add(world,whiteGround3Level11.body)
+            await World.add(world,whiteGround4Level11.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel11.image = playerRightImg
+            }
+            else{
+             playerLevel11.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level11.body)
+            await World.remove(world,whiteGround2Level11.body)
+            await World.remove(world,whiteGround3Level11.body)
+            await World.remove(world,whiteGround4Level11.body)
+            await World.add(world,blackGround1Level11.body)
+            await World.add(world,blackGround2Level11.body)
+            await World.add(world,blackGround3Level11.body)
+            await World.add(world,blackGround4Level11.body)
+            await World.add(world,blackGround5Level11.body)
+            await World.add(world,blackGround6Level11.body)
+            backColor = 0
+        } 
+        })
+        showDeathValue()
         blackGround1Level11.display()
         blackGround2Level11.display()
         blackGround3Level11.display()
@@ -1435,16 +2330,9 @@ async function draw()
         whiteGround4Level11.display()
         playerLevel11.display()
         starLevel11.display()
-        for(var i = particles.length-1;i>=0;i--)
-    {particles[i].show()
-        particles[i].update()
-        if(particles[i].finished())
+        if(deathValue===10)
         {
-          particles.splice(i,1)
-        }
-    }playerLevel11Collided = Matter.SAT.collides(playerLevel11.body,starLevel11.body)
-    if(playerLevel11Collided.collided)
-    {
+            
             World.remove(world,whiteGround1Level11.body)
             World.remove(world,whiteGround2Level11.body)
             World.remove(world,whiteGround3Level11.body)
@@ -1457,6 +2345,54 @@ async function draw()
             World.remove(world,blackGround6Level11.body)
             World.remove(world,playerLevel11.body)
             World.remove(world,starLevel11.body)
+            upButton11.hide()
+            switchButton11.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+        }
+        for(var i = particles.length-1;i>=0;i--)
+    {particles[i].show()
+        particles[i].update()
+        if(particles[i].finished())
+        {
+          particles.splice(i,1)
+        }
+    }playerLevel11Collided = Matter.SAT.collides(playerLevel11.body,starLevel11.body)
+    if(playerLevel11Collided.collided)
+    {
+        levelUpSound.play()
+            World.remove(world,whiteGround1Level11.body)
+            World.remove(world,whiteGround2Level11.body)
+            World.remove(world,whiteGround3Level11.body)
+            World.remove(world,whiteGround4Level11.body)
+            World.remove(world,blackGround1Level11.body)
+            World.remove(world,blackGround2Level11.body)
+            World.remove(world,blackGround3Level11.body)
+            World.remove(world,blackGround4Level11.body)
+            World.remove(world,blackGround5Level11.body)
+            World.remove(world,blackGround6Level11.body)
+            World.remove(world,playerLevel11.body)
+            World.remove(world,starLevel11.body)
+            upButton11.hide()
+            switchButton11.hide()
             backToMenu = createImg('Image/backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
@@ -1481,6 +2417,7 @@ async function draw()
         if(playerLevel11.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel11)
+            deathValue += 1
             playerLevel11 = new Player(displayWidth/2-600,displayHeight-140,80,80)
         }
     }
@@ -1504,13 +2441,88 @@ async function draw()
         joyControl(joystick12,playerLevel12)
         upButton12.mousePressed(()=>{
             playerLevel12.moveUp()
+            jumpSound.play()
         })
+        switchButton12.mousePressed(async()=>{
+            if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel12.image = playerWhiteRight
+            }
+            else{
+             playerLevel12.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level12.body)
+            await World.remove(world,blackGround2Level12.body)
+            await World.remove(world,blackGround3Level12.body)
+            await World.add(world,whiteGround1Level12.body)
+            await World.add(world,whiteGround2Level12.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel12.image = playerRightImg
+            }
+            else{
+             playerLevel12.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level12.body)
+            await World.remove(world,whiteGround2Level12.body)
+            await World.add(world,blackGround1Level12.body)
+            await World.add(world,blackGround2Level12.body)
+            await World.add(world,blackGround3Level12.body)
+            backColor = 0
+        } 
+        })
+        showDeathValue()
         blackGround1Level12.display()
         blackGround2Level12.display()
+        blackGround3Level12.display()
         whiteGround1Level12.display()
         whiteGround2Level12.display()
         playerLevel12.display()
         starLevel12.display()
+        if (deathValue===10) {
+            
+            World.remove(world,whiteGround1Level12.body)
+            World.remove(world,whiteGround2Level12.body)
+            World.remove(world,blackGround1Level12.body)
+            World.remove(world,blackGround2Level12.body)
+            World.remove(world,blackGround3Level12.body)
+            World.remove(world,playerLevel12.body)
+            World.remove(world,starLevel12.body)
+            upButton12.hide()
+            switchButton12.hide()
+            backToMenu = createImg('Image/backButton.png')
+            backToMenu.position(30,30)
+            backToMenu.mousePressed(()=>
+            {
+                backToMenu.hide()
+                menu.playButton.hide()
+                menu.howTo.hide()
+                levels.hide()
+                gameState=0
+                menu = new Menu()
+            })
+            gameState=1
+            gameState1 = 'level'
+            levels = new Levels()
+            back = color(255,255,255)
+            c = (51,51,51)
+            particles = []
+            backColor = 0
+            level = 0
+            deathValue = 0
+        }
         for(var i = particles.length-1;i>=0;i--)
         {particles[i].show()
             particles[i].update()
@@ -1521,12 +2533,16 @@ async function draw()
         }playerLevel12Collided = Matter.SAT.collides(playerLevel12.body,starLevel12.body)
         if(playerLevel12Collided.collided)
         {
+            levelUpSound.play()
             World.remove(world,whiteGround1Level12.body)
             World.remove(world,whiteGround2Level12.body)
             World.remove(world,blackGround1Level12.body)
             World.remove(world,blackGround2Level12.body)
+            World.remove(world,blackGround3Level12.body)
             World.remove(world,playerLevel12.body)
             World.remove(world,starLevel12.body)
+            upButton12.hide()
+            switchButton12.hide()
             backToMenu = createImg('Image/backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
@@ -1551,6 +2567,7 @@ async function draw()
         if(playerLevel12.body.position.y>displayHeight+40)
         {
             World.remove(world,playerLevel12)
+            deathValue += 1
             playerLevel12 = new Player(displayWidth/2,displayHeight/2-250,80,80)
         }
     }
@@ -1576,7 +2593,55 @@ async function draw()
             joyControl(joystick13,playerLevel13)
             upButton13.mousePressed(()=>{
                 playerLevel13.moveUp()
+                jumpSound.play()
             })
+            switchButton13.mousePressed(async()=>{
+                if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel13.image = playerWhiteRight
+            }
+            else{
+             playerLevel13.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level13.body)
+            await World.remove(world,blackGround2Level13.body)
+            await World.remove(world,blackGround3Level13.body)
+            await World.remove(world,blackGround4Level13.body)
+            await World.add(world,whiteGround1Level13.body)
+            await World.add(world,whiteGround2Level13.body)
+            await World.add(world,whiteGround3Level13.body)
+            await World.add(world,whiteGround4Level13.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel13.image = playerRightImg
+            }
+            else{
+             playerLevel13.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level13.body)
+            await World.remove(world,whiteGround2Level13.body)
+            await World.remove(world,whiteGround3Level13.body)
+            await World.remove(world,whiteGround4Level13.body)
+            await World.add(world,blackGround1Level13.body)
+            await World.add(world,blackGround2Level13.body)
+            await World.add(world,blackGround3Level13.body)
+            await World.add(world,blackGround4Level13.body)
+            backColor = 0
+        }  
+            })
+            showDeathValue()
             blackGround1Level13.display()
             blackGround2Level13.display()
             blackGround3Level13.display()
@@ -1587,16 +2652,8 @@ async function draw()
             whiteGround4Level13.display()
             playerLevel13.display()
             starLevel13.display()
-            for(var i = particles.length-1;i>=0;i--)
-    {particles[i].show()
-        particles[i].update()
-        if(particles[i].finished())
-        {
-          particles.splice(i,1)
-        }
-    }playerLevel13Collided = Matter.SAT.collides(playerLevel13.body,starLevel13.body)
-    if(playerLevel13Collided.collided)
-    {
+            if (deathValue===10) {
+                
                 World.remove(world,whiteGround1Level13.body)
                 World.remove(world,whiteGround2Level13.body)
                 World.remove(world,whiteGround3Level13.body)
@@ -1607,6 +2664,52 @@ async function draw()
                 World.remove(world,blackGround4Level13.body)
                 World.remove(world,playerLevel13.body)
                 World.remove(world,starLevel13.body)
+                upButton13.hide()
+                switchButton13.hide()
+                backToMenu = createImg('Image/backButton.png')
+                backToMenu.position(30,30)
+                backToMenu.mousePressed(()=>
+                {
+                    backToMenu.hide()
+                    menu.playButton.hide()
+                    menu.howTo.hide()
+                    levels.hide()
+                    gameState=0
+                    menu = new Menu()
+                })
+                gameState=1
+                gameState1 = 'level'
+                levels = new Levels()
+                back = color(255,255,255)
+                c = (51,51,51)
+                particles = []
+                backColor = 0
+                level = 0
+                deathValue = 0
+            }
+            for(var i = particles.length-1;i>=0;i--)
+    {particles[i].show()
+        particles[i].update()
+        if(particles[i].finished())
+        {
+          particles.splice(i,1)
+        }
+    }playerLevel13Collided = Matter.SAT.collides(playerLevel13.body,starLevel13.body)
+    if(playerLevel13Collided.collided)
+    {
+        levelUpSound.play()
+                World.remove(world,whiteGround1Level13.body)
+                World.remove(world,whiteGround2Level13.body)
+                World.remove(world,whiteGround3Level13.body)
+                World.remove(world,whiteGround4Level13.body)
+                World.remove(world,blackGround1Level13.body)
+                World.remove(world,blackGround2Level13.body)
+                World.remove(world,blackGround3Level13.body)
+                World.remove(world,blackGround4Level13.body)
+                World.remove(world,playerLevel13.body)
+                World.remove(world,starLevel13.body)
+                upButton13.hide()
+                switchButton13.hide()
                 backToMenu = createImg('Image/backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
@@ -1631,6 +2734,7 @@ async function draw()
             if(playerLevel13.body.position.y>displayHeight+40)
             {
                 World.remove(world,playerLevel13)
+                deathValue +=1
                 playerLevel13 = new Player(displayWidth/2-400,displayHeight/2,80,80)
             }
         }
@@ -1656,7 +2760,65 @@ async function draw()
             joyControl(joystick14,playerLevel14)
             upButton14.mousePressed(()=>{
                 playerLevel14.moveUp()
+                jumpSound.play()
             })
+            switchButton14.mousePressed(async()=>{
+                if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel14.image = playerWhiteRight
+            }
+            else{
+             playerLevel14.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level14.body)
+            await World.remove(world,blackGround2Level14.body)
+            await World.remove(world,blackGround3Level14.body)
+            await World.remove(world,blackGround4Level14.body)
+            await World.remove(world,blackGround5Level14.body)
+            await World.remove(world,blackGround6Level14.body)
+            await World.remove(world,blackGround7Level14.body)
+            await World.remove(world,blackGround8Level14.body)
+            await World.remove(world,blackGround9Level14.body)
+            await World.add(world,whiteGround1Level14.body)
+            await World.add(world,whiteGround2Level14.body)
+            await World.add(world,whiteGround3Level14.body)
+            await World.add(world,whiteGround4Level14.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel14.image = playerRightImg
+            }
+            else{
+             playerLevel14.image = playerLeftImg
+            }
+            await World.remove(world,whiteGround1Level14.body)
+            await World.remove(world,whiteGround2Level14.body)
+            await World.remove(world,whiteGround3Level14.body)
+            await World.remove(world,whiteGround4Level14.body)
+            await World.add(world,blackGround1Level14.body)
+            await World.add(world,blackGround2Level14.body)
+            await World.add(world,blackGround3Level14.body)
+            await World.add(world,blackGround4Level14.body)
+            await World.add(world,blackGround5Level14.body)
+            await World.add(world,blackGround6Level14.body)
+            await World.add(world,blackGround7Level14.body)
+            await World.add(world,blackGround8Level14.body)
+            await World.add(world,blackGround9Level14.body)
+            backColor = 0
+        } 
+            })
+            showDeathValue()
             blackGround1Level14.display()
             blackGround2Level14.display()
             blackGround3Level14.display()
@@ -1672,16 +2834,8 @@ async function draw()
             whiteGround4Level14.display()
             playerLevel14.display()
             starLevel14.display()
-            for(var i = particles.length-1;i>=0;i--)
-    {particles[i].show()
-        particles[i].update()
-        if(particles[i].finished())
-        {
-          particles.splice(i,1)
-        }
-    }playerLevel14Collided = Matter.SAT.collides(playerLevel14.body,starLevel14.body)
-    if(playerLevel14Collided.collided)
-    {
+            if (deathValue===10) {
+                
                 World.remove(world,blackGround1Level14.body)
                 World.remove(world,blackGround2Level14.body)
                 World.remove(world,blackGround3Level14.body)
@@ -1697,6 +2851,57 @@ async function draw()
                 World.remove(world,whiteGround4Level14.body)
                 World.remove(world,playerLevel14.body)
                 World.remove(world,starLevel14.body)
+                upButton14.hide()
+                switchButton14.hide()
+                backToMenu = createImg('Image/backButton.png')
+                backToMenu.position(30,30)
+                backToMenu.mousePressed(()=>
+                {
+                    backToMenu.hide()
+                    menu.playButton.hide()
+                    menu.howTo.hide()
+                    levels.hide()
+                    gameState=0
+                    menu = new Menu()
+                })
+                gameState=1
+                gameState1 = 'level'
+                levels = new Levels()
+                back = color(255,255,255)
+                c = (51,51,51)
+                particles = []
+                backColor = 0
+                level = 0
+                deathValue = 0
+            }
+            for(var i = particles.length-1;i>=0;i--)
+    {particles[i].show()
+        particles[i].update()
+        if(particles[i].finished())
+        {
+          particles.splice(i,1)
+        }
+    }playerLevel14Collided = Matter.SAT.collides(playerLevel14.body,starLevel14.body)
+    if(playerLevel14Collided.collided)
+    {
+        levelUpSound.play()
+                World.remove(world,blackGround1Level14.body)
+                World.remove(world,blackGround2Level14.body)
+                World.remove(world,blackGround3Level14.body)
+                World.remove(world,blackGround4Level14.body)
+                World.remove(world,blackGround5Level14.body)
+                World.remove(world,blackGround6Level14.body)
+                World.remove(world,blackGround7Level14.body)
+                World.remove(world,blackGround8Level14.body)
+                World.remove(world,blackGround9Level14.body)
+                World.remove(world,whiteGround1Level14.body)
+                World.remove(world,whiteGround2Level14.body)
+                World.remove(world,whiteGround3Level14.body)
+                World.remove(world,whiteGround4Level14.body)
+                World.remove(world,playerLevel14.body)
+                World.remove(world,starLevel14.body)
+                upButton14.hide()
+                switchButton14.hide()
                 backToMenu = createImg('Image/backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
@@ -1721,6 +2926,7 @@ async function draw()
             if(playerLevel14.body.position.y>displayHeight+40)
             {
                 World.remove(world,playerLevel14)
+                deathValue += 1
                 playerLevel14 = new Player(displayWidth/2-425,displayHeight/2+150,80,80)
             }
         }
@@ -1738,7 +2944,63 @@ async function draw()
             joyControl(joystick15,playerLevel15)
             upButton15.mousePressed(()=>{
                 playerLevel15.moveUp()
+                jumpSound.play()
             })
+            switchButton15.mousePressed(async()=>{
+                if(backColor===0)
+        {
+         
+            back = color(51,51,51)
+            c = (235,235,235)
+            if(playerMode==="right")
+            {
+            playerLevel15.image = playerWhiteRight
+            }
+            else{
+             playerLevel5.image = playerWhiteLeft
+            }
+            await World.remove(world,blackGround1Level15.body)
+            await World.remove(world,blackGround2Level15.body)
+            await World.remove(world,blackGround3Level15.body)
+            await World.remove(world,blackGround4Level15.body)
+            await World.remove(world,blackGround5Level15.body)
+            await World.remove(world,blackGround6Level15.body)
+            await World.remove(world,blackGround7Level15.body)
+            await World.remove(world,blackGround8Level15.body)
+            await World.remove(world,blackGround9Level15.body)
+            await World.remove(world,blackGround10Level15.body)
+            await World.remove(world,blackGround11Level15.body)
+            await World.remove(world,blackGround12Level15.body)
+            backColor = 1
+        }
+        else
+        {
+
+            back = color(255,255,255)
+            c = (51,51,51)
+            if(playerMode==="right")
+            {
+            playerLevel15.image = playerRightImg
+            }
+            else{
+             playerLevel15.image = playerLeftImg
+            }
+            await World.add(world,blackGround1Level15.body)
+            await World.add(world,blackGround2Level15.body)
+            await World.add(world,blackGround3Level15.body)
+            await World.add(world,blackGround4Level15.body)
+            await World.add(world,blackGround5Level15.body)
+            await World.add(world,blackGround6Level15.body)
+            await World.add(world,blackGround7Level15.body)
+            await World.add(world,blackGround8Level15.body)
+            await World.add(world,blackGround9Level15.body)
+            await World.add(world,blackGround10Level15.body)
+            await World.add(world,blackGround11Level15.body)
+            await World.add(world,blackGround12Level15.body)
+            backColor = 0
+        } 
+            })
+            showDeathValue()
             blackGround1Level15.display()
             blackGround2Level15.display()
             blackGround3Level15.display()
@@ -1753,16 +3015,9 @@ async function draw()
             blackGround12Level15.display()
             playerLevel15.display()
             starLevel15.display()
-            for(var i = particles.length-1;i>=0;i--)
-    {particles[i].show()
-        particles[i].update()
-        if(particles[i].finished())
-        {
-          particles.splice(i,1)
-        }
-    }playerLevel15Collided = Matter.SAT.collides(playerLevel15.body,starLevel15.body)
-    if(playerLevel15Collided.collided)
-    {
+            if(deathValue===10)
+            {
+                
                 World.remove(world,blackGround1Level15.body)
                 World.remove(world,blackGround2Level15.body)
                 World.remove(world,blackGround3Level15.body)
@@ -1777,6 +3032,56 @@ async function draw()
                 World.remove(world,blackGround12Level15.body)
                 World.remove(world,playerLevel15.body)
                 World.remove(world,starLevel15.body)
+                upButton15.hide()
+                switchButton15.hide()
+                backToMenu = createImg('Image/backButton.png')
+                backToMenu.position(30,30)
+                backToMenu.mousePressed(()=>
+                {
+                    backToMenu.hide()
+                    menu.playButton.hide()
+                    menu.howTo.hide()
+                    levels.hide()
+                    gameState=0
+                    menu = new Menu()
+                })
+                gameState=1
+                gameState1 = 'level'
+                levels = new Levels()
+                back = color(255,255,255)
+                c = (51,51,51)
+                particles = []
+                backColor = 0
+                level = 0
+                deathValue = 0
+            }
+            for(var i = particles.length-1;i>=0;i--)
+    {particles[i].show()
+        particles[i].update()
+        if(particles[i].finished())
+        {
+          particles.splice(i,1)
+        }
+    }playerLevel15Collided = Matter.SAT.collides(playerLevel15.body,starLevel15.body)
+    if(playerLevel15Collided.collided)
+    {
+        levelUpSound.play()
+                World.remove(world,blackGround1Level15.body)
+                World.remove(world,blackGround2Level15.body)
+                World.remove(world,blackGround3Level15.body)
+                World.remove(world,blackGround4Level15.body)
+                World.remove(world,blackGround5Level15.body)
+                World.remove(world,blackGround6Level15.body)
+                World.remove(world,blackGround7Level15.body)
+                World.remove(world,blackGround8Level15.body)
+                World.remove(world,blackGround9Level15.body)
+                World.remove(world,blackGround10Level15.body)
+                World.remove(world,blackGround11Level15.body)
+                World.remove(world,blackGround12Level15.body)
+                World.remove(world,playerLevel15.body)
+                World.remove(world,starLevel15.body)
+                upButton15.hide()
+                switchButton15.hide()
                 backToMenu = createImg('Image/backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
@@ -1800,6 +3105,7 @@ async function draw()
             if(playerLevel15.body.position.y>displayHeight+40)
             {
                 World.remove(world,playerLevel15)
+                deathValue += 1
                 playerLevel15 = new Player(displayWidth/2-400,displayHeight/2+150,80,80)
             }
         }
@@ -2285,6 +3591,7 @@ async function draw()
             }
             await World.remove(world,blackGround1Level12.body)
             await World.remove(world,blackGround2Level12.body)
+            await World.remove(world,blackGround3Level12.body)
             await World.add(world,whiteGround1Level12.body)
             await World.add(world,whiteGround2Level12.body)
             backColor = 1
@@ -2305,6 +3612,7 @@ async function draw()
             await World.remove(world,whiteGround2Level12.body)
             await World.add(world,blackGround1Level12.body)
             await World.add(world,blackGround2Level12.body)
+            await World.add(world,blackGround3Level12.body)
             backColor = 0
         } 
        }
@@ -2471,13 +3779,17 @@ async function draw()
     }
     if(keyCode===38)
     {
+        jumpSound.play()
         if(level === 1)
         {
+
             playerLevel1.moveUp()
+
         }
         if(level === 2)
         {
             playerLevel2.moveUp()
+            
         }
         if(level === 3)
         {
@@ -2575,4 +3887,19 @@ function joyControl(joystick,player){
             player.moveLeft()    
 		}
 }
-
+function showDeathValue()
+{
+    if(backColor===0)
+        {
+            c3 = color(35,35,35)
+            image(deathBlack,displayWidth/2-75,15,50,50)
+        }
+        else{
+            c3 = color(235,235,235)
+            image(deathWhite,displayWidth/2-75,15,50,50)
+        }
+        fill(c3)
+        textSize(20)
+        textFont(myFont)
+        text(":"+deathValue,displayWidth/2-25,50)
+}

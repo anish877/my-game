@@ -2,7 +2,7 @@ class Player{
     constructor(x, y, width, height) {
         var options = {
             'restitution':0.8,
-            'friction':1.0,
+            'friction':3.0,
             'density':1.0
             
         }
@@ -24,7 +24,7 @@ class Player{
 
     }
       moveRight(){
-         var push = Matter.Vector.create(+6,0)
+         var push = Matter.Vector.create(+7,0)
          Matter.Body.translate(this.body,push)
          if(backColor===1)
          {
@@ -36,7 +36,7 @@ class Player{
          playerMode = "right"
       }
       moveLeft(){
-        var push = Matter.Vector.create(-6,0)
+        var push = Matter.Vector.create(-7,0)
         Matter.Body.translate(this.body,push)
         if(backColor===1)
         {
