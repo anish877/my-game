@@ -249,7 +249,7 @@ var playerLevel15Collided
 var starLevel15
 var gameState=0
 function setup(){
-    var canvas = createCanvas(displayWidth,displayHeight);
+    var canvas = createCanvas(displayWidth-20,displayHeight-30);
     engine = Engine.create();
     world = engine.world;
     menu = new Menu()
