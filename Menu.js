@@ -1,7 +1,7 @@
 class Menu{
     constructor(){
-        this.playButton = createImg('image/play.png')
-        this.howTo = createImg('image/howTo.png')
+        this.playButton = createImg('play.png')
+        this.howTo = createImg('howTo.png')
     }
     display()
     {   background(backgroundImg)
@@ -32,7 +32,7 @@ class Menu{
         this.playButton.position(displayWidth/2-100,displayHeight/2-200)
         this.playButton.mousePressed(()=>
         {
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -49,12 +49,12 @@ class Menu{
             levels = new Levels()
         })
         this.howTo.position(displayWidth/2-100,displayHeight/2+100)
-        //  form = loadImage('Image/form.png')
+        //  form = loadImage('form.png')
         this.howTo.mousePressed(()=>
         {   displayText = 0
-            var backButton = createImg('Image/backButton.png')
-            var formButton = createImg('Image/form.png')
-            var form2Button = createImg('Image/form2.png')
+            var backButton = createImg('backButton.png')
+            var formButton = createImg('form.png')
+            var form2Button = createImg('form2.png')
             form2Button.position(displayWidth/2+250,displayHeight/2-150)
             formButton.position(displayWidth/2-600,displayHeight/2-350)
             // console.log(form)

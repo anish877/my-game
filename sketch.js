@@ -262,36 +262,36 @@ function preload()
     c2 = (235,235,235)
     fontColor = 2
     displayText = 1
-    backgroundImg = loadImage('Image/background.png')
-    playerAnimation = loadAnimation('Image/player1.png','Image/player2.png','Image/player3.png')
-    starAnimation = loadAnimation('Image/star1.png','Image/star2.png','Image/star3.png','Image/star4.png','Image/star5.png')
-    starAnimationWhite = loadAnimation('Image/star1White.png','Image/star2White.png','Image/star3White.png','Image/star4White.png','Image/star5White.png')
-    playerRightImg = loadImage('Image/playerRight.png')
-    playerLeftImg = loadImage('Image/playerLeft.png')
-    playerWhiteLeft = loadImage('Image/playerWhiteLeft.png')
-    playerWhiteRight = loadImage('Image/playerWhiteRight.png')
-    level2Img = loadImage('Image/level2Locked.png')
-    level3Img = loadImage('Image/level3Locked.png')
-    level4Img = loadImage('Image/level4Locked.png')
-    level5Img = loadImage('Image/level5Locked.png')
-    level6Img = loadImage('Image/level6Locked.png')
-    level7Img = loadImage('Image/level7Locked.png')
-    level8Img = loadImage('Image/level8Locked.png')
-    level9Img = loadImage('Image/level9Locked.png')
-    level10Img = loadImage('Image/level10Locked.png')
-    level11Img = loadImage('Image/level11Locked.png')
-    level12Img = loadImage('Image/level12Locked.png')
-    level13Img = loadImage('Image/level13Locked.png')
-    level14Img = loadImage('Image/level14Locked.png')
-    level15Img = loadImage('Image/level15Locked.png')
-    deathWhite = loadImage('Image/deathWhite.png')
-    deathBlack = loadImage('Image/deathBlack.png')
-    myFont = loadFont('FONTS/joystix monospace.ttf')
-    jumpSound = loadSound('fx/jumpSound.mp3')
-    backSound = loadSound('fx/backSound.mp3')
-    levelUpSound = loadSound('fx/levelComplete.mp3')
-    gameOverSound = loadSound('fx/gameOver.mp3')
-    deathSound = loadSound('fx/death.mp3')
+    backgroundImg = loadImage('background.png')
+    playerAnimation = loadAnimation('player1.png','player2.png','player3.png')
+    starAnimation = loadAnimation('star1.png','star2.png','star3.png','star4.png','star5.png')
+    starAnimationWhite = loadAnimation('star1White.png','star2White.png','star3White.png','star4White.png','star5White.png')
+    playerRightImg = loadImage('playerRight.png')
+    playerLeftImg = loadImage('playerLeft.png')
+    playerWhiteLeft = loadImage('playerWhiteLeft.png')
+    playerWhiteRight = loadImage('playerWhiteRight.png')
+    level2Img = loadImage('level2Locked.png')
+    level3Img = loadImage('level3Locked.png')
+    level4Img = loadImage('level4Locked.png')
+    level5Img = loadImage('level5Locked.png')
+    level6Img = loadImage('level6Locked.png')
+    level7Img = loadImage('level7Locked.png')
+    level8Img = loadImage('level8Locked.png')
+    level9Img = loadImage('level9Locked.png')
+    level10Img = loadImage('level10Locked.png')
+    level11Img = loadImage('level11Locked.png')
+    level12Img = loadImage('level12Locked.png')
+    level13Img = loadImage('level13Locked.png')
+    level14Img = loadImage('level14Locked.png')
+    level15Img = loadImage('level15Locked.png')
+    deathWhite = loadImage('deathWhite.png')
+    deathBlack = loadImage('deathBlack.png')
+    myFont = loadFont('joystix monospace.ttf')
+    jumpSound = loadSound('jumpSound.mp3')
+    backSound = loadSound('backSound.mp3')
+    levelUpSound = loadSound('levelComplete.mp3')
+    gameOverSound = loadSound('gameOver.mp3')
+    deathSound = loadSound('death.mp3')
 }
 
 async function draw()
@@ -788,7 +788,7 @@ async function draw()
         World.remove(world,starLevel1.body)
         upButton1.hide()
         switchButton1.hide()
-        backToMenu = createImg('Image/backButton.png')
+        backToMenu = createImg('backButton.png')
     backToMenu.position(30,30)
     backToMenu.mousePressed(()=>
     {
@@ -827,7 +827,7 @@ async function draw()
       World.remove(world,starLevel1.body)
       upButton1.hide()
       switchButton1.hide()
-    backToMenu = createImg('Image/backButton.png')
+    backToMenu = createImg('backButton.png')
     backToMenu.position(30,30)
     backToMenu.mousePressed(()=>
     {
@@ -921,7 +921,7 @@ async function draw()
      starLevel2.display()
      if(deathValue===10)
      {
-         
+        gameOverSound.play()
         textSize(72)
         textFont(myFont)
         text("GAME OVER",displayWidth/2-300,displayHeight/2)
@@ -930,7 +930,7 @@ async function draw()
         World.remove(world,blackGround2Level2.body)
         World.remove(world,playerLevel2.body)
         World.remove(world,starLevel2.body)
-        backToMenu = createImg('Image/backButton.png')
+        backToMenu = createImg('backButton.png')
         backToMenu.position(30,30)
         backToMenu.mousePressed(()=>
         {
@@ -972,7 +972,7 @@ async function draw()
        World.remove(world,starLevel2.body)
        upButton2.hide()
        switchButton2.hide()
-       backToMenu = createImg('Image/backButton.png')
+       backToMenu = createImg('backButton.png')
        backToMenu.position(30,30)
        backToMenu.mousePressed(()=>
        {
@@ -994,7 +994,9 @@ async function draw()
        level = 0
      }
      if(playerLevel2.body.position.y>displayHeight+40)
-     {  World.remove(world,playerLevel2)
+     {  
+        deathSound.play()
+        World.remove(world,playerLevel2)
         deathValue += 1
          playerLevel2 = new Player(displayWidth/2,displayHeight/2 - 120,80,80)
      }
@@ -1066,7 +1068,7 @@ async function draw()
          starLevel3.display()
          if(deathValue===10)
          {
-
+            gameOverSound.play()
             World.remove(world,whiteGround1Level3.body)
             World.remove(world,blackGroundLevel3.body)
             World.remove(world,whiteGround2Level3.body)
@@ -1075,7 +1077,7 @@ async function draw()
             upButton3.hide()
             switchButton3.hide()
             
-        backToMenu = createImg('Image/backButton.png')
+        backToMenu = createImg('backButton.png')
         backToMenu.position(30,30)
         backToMenu.mousePressed(()=>
         {
@@ -1115,7 +1117,7 @@ async function draw()
            World.remove(world,starLevel3.body)
            upButton3.hide()
            switchButton3.hide()
-           backToMenu = createImg('Image/backButton.png')
+           backToMenu = createImg('backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
            {
@@ -1137,7 +1139,9 @@ async function draw()
            level = 0
          }
          if(playerLevel3.body.position.y>displayHeight+40)
-         {  World.remove(world,playerLevel3)
+         {  
+            deathSound.play()
+            World.remove(world,playerLevel3)
             deathValue += 1
              playerLevel3 = new Player(displayWidth/2-500,0 + 20,80,80)
          }
@@ -1220,7 +1224,7 @@ async function draw()
          playerLevel4.display()
          starLevel4.display()
          if(deathValue===10)
-         {
+         {        gameOverSound.play()
             World.remove(world,whiteGround1Level4.body)
             World.remove(world,blackGround1Level4.body)
             World.remove(world,blackGround2Level4.body)
@@ -1232,7 +1236,7 @@ async function draw()
             World.remove(world,starLevel4.body)
             upButton4.hide()
             switchButton4.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1277,7 +1281,7 @@ async function draw()
            World.remove(world,starLevel4.body)
            upButton4.hide()
            switchButton4.hide()
-           backToMenu = createImg('Image/backButton.png')
+           backToMenu = createImg('backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
            {
@@ -1299,7 +1303,7 @@ async function draw()
            level = 0
          }
          if(playerLevel4.body.position.y>displayHeight+40)
-         {
+         { deathSound.play()
              World.remove(world,playerLevel4)
              deathValue += 1
              playerLevel4 = new Player(80,displayWidth/2-20,80,80)
@@ -1381,6 +1385,7 @@ async function draw()
         showDeathValue()
         if(deathValue===10)
         {
+            gameOverSound.play()
             World.remove(world,blackGround7Level5.body)
           World.remove(world,blackGround1Level5.body)
           World.remove(world,blackGround2Level5.body)
@@ -1392,7 +1397,7 @@ async function draw()
           World.remove(world,starLevel5.body)
           upButton5.hide()
           switchButton5.hide()
-          backToMenu = createImg('Image/backButton.png')
+          backToMenu = createImg('backButton.png')
           backToMenu.position(30,30)
           backToMenu.mousePressed(()=>
           {
@@ -1438,7 +1443,7 @@ async function draw()
           World.remove(world,starLevel5.body)
           upButton5.hide()
           switchButton5.hide()
-          backToMenu = createImg('Image/backButton.png')
+          backToMenu = createImg('backButton.png')
           backToMenu.position(30,30)
           backToMenu.mousePressed(()=>
           {
@@ -1461,6 +1466,7 @@ async function draw()
         }
         if(playerLevel5.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel5)
             deathValue += 1
             playerLevel5 = new Player(250,displayHeight-250,80,80)
@@ -1537,6 +1543,7 @@ async function draw()
          starLevel6.display()
          if(deathValue===10)
          {
+            gameOverSound.play()
             World.remove(world,whiteGround1Level6.body)
             World.remove(world,whiteGround2Level6.body)
             World.remove(world,blackGround1Level6.body)
@@ -1545,7 +1552,7 @@ async function draw()
             World.remove(world,starLevel6.body)
             upButton6.hide()
             switchButton6.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1588,7 +1595,7 @@ async function draw()
            World.remove(world,starLevel6.body)
            upButton6.hide()
            switchButton6.hide()
-           backToMenu = createImg('Image/backButton.png')
+           backToMenu = createImg('backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
            {
@@ -1611,7 +1618,8 @@ async function draw()
          }
          if(playerLevel6.body.position.y>displayHeight+40)
          {
-             World.remove(world,playerLevel6)
+            deathSound.play()
+            World.remove(world,playerLevel6)
              deathValue += 1
              playerLevel6 = new Player(displayWidth/2-400,displayHeight-100,80,80)
          }
@@ -1711,7 +1719,7 @@ async function draw()
         starLevel7.display()
         if(deathValue===10)
         {
-            
+            gameOverSound.play()
             World.remove(world,whiteGround1Level7.body)
             World.remove(world,whiteGround2Level7.body)
             World.remove(world,whiteGround3Level7.body)
@@ -1727,7 +1735,7 @@ async function draw()
             World.remove(world,starLevel7.body)
             upButton7.hide()
             switchButton7.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1775,7 +1783,7 @@ async function draw()
             World.remove(world,starLevel7.body)
             upButton7.hide()
             switchButton7.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1798,6 +1806,7 @@ async function draw()
         }
         if(playerLevel7.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel7)
             deathValue += 1
             playerLevel7 = new Player(displayWidth/2-300,displayHeight/2-125,80,80)
@@ -1875,6 +1884,7 @@ async function draw()
         starLevel8.display()
         if(deathValue===10)
         {
+            gameOverSound.play()
             World.remove(world,whiteGround1Level8.body)
             World.remove(world,whiteGround2Level8.body)
             World.remove(world,blackGround1Level8.body)
@@ -1884,7 +1894,7 @@ async function draw()
             World.remove(world,starLevel8.body)
             upButton8.hide()
             switchButton8.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1927,7 +1937,7 @@ async function draw()
             World.remove(world,starLevel8.body)
             upButton8.hide()
             switchButton8.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -1950,6 +1960,7 @@ async function draw()
         }
         if(playerLevel8.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel8)
             deathValue += 1
             playerLevel8 = new Player(displayWidth/2-400,displayHeight-110,80,80)
@@ -2003,13 +2014,14 @@ async function draw()
        starLevel9.display()
        if(deathValue===10)
        {
+        gameOverSound.play()
         World.remove(world,blackGround1Level9.body)
         World.remove(world,blackGround2Level9.body)
         World.remove(world,playerLevel9.body)
         World.remove(world,starLevel9.body)
         upButton9.hide()
         switchButton9.hide()
-        backToMenu = createImg('Image/backButton.png')
+        backToMenu = createImg('backButton.png')
         backToMenu.position(30,30)
         backToMenu.mousePressed(()=>
         {
@@ -2058,7 +2070,7 @@ async function draw()
            World.remove(world,starLevel9.body)
            upButton9.hide()
            switchButton9.hide()
-           backToMenu = createImg('Image/backButton.png')
+           backToMenu = createImg('backButton.png')
            backToMenu.position(30,30)
            backToMenu.mousePressed(()=>
            {
@@ -2081,7 +2093,8 @@ async function draw()
        }
        if(playerLevel9.body.position.y>displayHeight+40)
        {
-           World.remove(world,playerLevel9)
+        deathSound.play()
+        World.remove(world,playerLevel9)
            deathValue += 1
            playerLevel9 = new Player(40,displayHeight/2,80,80)
        }
@@ -2162,7 +2175,7 @@ async function draw()
         starLevel10.display()
         if(deathValue===10)
         {
-            
+            gameOverSound.play()
             World.remove(world,whiteGround1Level10.body)
             World.remove(world,whiteGround2Level10.body)
             World.remove(world,whiteGround3Level10.body)
@@ -2173,7 +2186,7 @@ async function draw()
             World.remove(world,starLevel10.body)
             upButton10.hide()
             switchButton10.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2215,7 +2228,7 @@ async function draw()
             World.remove(world,starLevel10.body)
             upButton10.hide()
             switchButton10.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2238,6 +2251,7 @@ async function draw()
         }
         if(playerLevel10.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel10)
             deathValue+=1
             playerLevel10 = new Player(displayWidth/2-400,displayHeight/2-100,80,80)
@@ -2332,7 +2346,7 @@ async function draw()
         starLevel11.display()
         if(deathValue===10)
         {
-            
+            gameOverSound.play()
             World.remove(world,whiteGround1Level11.body)
             World.remove(world,whiteGround2Level11.body)
             World.remove(world,whiteGround3Level11.body)
@@ -2347,7 +2361,7 @@ async function draw()
             World.remove(world,starLevel11.body)
             upButton11.hide()
             switchButton11.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2393,7 +2407,7 @@ async function draw()
             World.remove(world,starLevel11.body)
             upButton11.hide()
             switchButton11.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2416,6 +2430,7 @@ async function draw()
         }
         if(playerLevel11.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel11)
             deathValue += 1
             playerLevel11 = new Player(displayWidth/2-600,displayHeight-140,80,80)
@@ -2492,7 +2507,7 @@ async function draw()
         playerLevel12.display()
         starLevel12.display()
         if (deathValue===10) {
-            
+            gameOverSound.play()
             World.remove(world,whiteGround1Level12.body)
             World.remove(world,whiteGround2Level12.body)
             World.remove(world,blackGround1Level12.body)
@@ -2502,7 +2517,7 @@ async function draw()
             World.remove(world,starLevel12.body)
             upButton12.hide()
             switchButton12.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2543,7 +2558,7 @@ async function draw()
             World.remove(world,starLevel12.body)
             upButton12.hide()
             switchButton12.hide()
-            backToMenu = createImg('Image/backButton.png')
+            backToMenu = createImg('backButton.png')
             backToMenu.position(30,30)
             backToMenu.mousePressed(()=>
             {
@@ -2566,6 +2581,7 @@ async function draw()
         }
         if(playerLevel12.body.position.y>displayHeight+40)
         {
+            deathSound.play()
             World.remove(world,playerLevel12)
             deathValue += 1
             playerLevel12 = new Player(displayWidth/2,displayHeight/2-250,80,80)
@@ -2653,7 +2669,7 @@ async function draw()
             playerLevel13.display()
             starLevel13.display()
             if (deathValue===10) {
-                
+                gameOverSound.play()
                 World.remove(world,whiteGround1Level13.body)
                 World.remove(world,whiteGround2Level13.body)
                 World.remove(world,whiteGround3Level13.body)
@@ -2666,7 +2682,7 @@ async function draw()
                 World.remove(world,starLevel13.body)
                 upButton13.hide()
                 switchButton13.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -2710,7 +2726,7 @@ async function draw()
                 World.remove(world,starLevel13.body)
                 upButton13.hide()
                 switchButton13.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -2733,6 +2749,7 @@ async function draw()
             }
             if(playerLevel13.body.position.y>displayHeight+40)
             {
+                deathSound.play()
                 World.remove(world,playerLevel13)
                 deathValue +=1
                 playerLevel13 = new Player(displayWidth/2-400,displayHeight/2,80,80)
@@ -2835,7 +2852,7 @@ async function draw()
             playerLevel14.display()
             starLevel14.display()
             if (deathValue===10) {
-                
+                gameOverSound.play()
                 World.remove(world,blackGround1Level14.body)
                 World.remove(world,blackGround2Level14.body)
                 World.remove(world,blackGround3Level14.body)
@@ -2853,7 +2870,7 @@ async function draw()
                 World.remove(world,starLevel14.body)
                 upButton14.hide()
                 switchButton14.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -2902,7 +2919,7 @@ async function draw()
                 World.remove(world,starLevel14.body)
                 upButton14.hide()
                 switchButton14.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -2925,6 +2942,7 @@ async function draw()
             }
             if(playerLevel14.body.position.y>displayHeight+40)
             {
+                deathSound.play()
                 World.remove(world,playerLevel14)
                 deathValue += 1
                 playerLevel14 = new Player(displayWidth/2-425,displayHeight/2+150,80,80)
@@ -3017,7 +3035,7 @@ async function draw()
             starLevel15.display()
             if(deathValue===10)
             {
-                
+                gameOverSound.play()
                 World.remove(world,blackGround1Level15.body)
                 World.remove(world,blackGround2Level15.body)
                 World.remove(world,blackGround3Level15.body)
@@ -3034,7 +3052,7 @@ async function draw()
                 World.remove(world,starLevel15.body)
                 upButton15.hide()
                 switchButton15.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -3082,7 +3100,7 @@ async function draw()
                 World.remove(world,starLevel15.body)
                 upButton15.hide()
                 switchButton15.hide()
-                backToMenu = createImg('Image/backButton.png')
+                backToMenu = createImg('backButton.png')
                 backToMenu.position(30,30)
                 backToMenu.mousePressed(()=>
                 {
@@ -3104,6 +3122,7 @@ async function draw()
             }
             if(playerLevel15.body.position.y>displayHeight+40)
             {
+                deathSound.play()
                 World.remove(world,playerLevel15)
                 deathValue += 1
                 playerLevel15 = new Player(displayWidth/2-400,displayHeight/2+150,80,80)

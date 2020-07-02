@@ -2,8 +2,8 @@ class Player{
     constructor(x, y, width, height) {
         var options = {
             'restitution':0.8,
-            'friction':3.0,
-            'density':1.0
+            'friction':5.0,
+            'density':1.0,
             
         }
         this.body = Bodies.rectangle(x, y, width, height, options);
@@ -11,7 +11,7 @@ class Player{
         this.height = height;
         Matter.Body.setMass(this.body, this.body.mass*2)
         //this.animation = playerAnimation
-        this.image = loadImage('Image/playerRight.png')
+        this.image = loadImage('playerRight.png')
         World.add(world, this.body);
       }
       display(){

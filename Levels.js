@@ -2,35 +2,35 @@ class Levels
 {
     constructor(){
         if(gameState>=1)
-        {this.l1button = createImg('Image/level1.png')}
+        {this.l1button = createImg('level1.png')}
         if(gameState>=2)
-        {this.l2button = createImg('Image/level2.png')}
+        {this.l2button = createImg('level2.png')}
         if(gameState>=3)
-        {this.l3button = createImg('Image/level3.png')}
+        {this.l3button = createImg('level3.png')}
         if(gameState>=4)
-        {this.l4button = createImg('Image/level4.png')}
+        {this.l4button = createImg('level4.png')}
         if(gameState>=5)
-        {this.l5button = createImg('Image/level5.png')}
+        {this.l5button = createImg('level5.png')}
         if(gameState>=6)
-        {this.l6button = createImg('Image/level6.png')}
+        {this.l6button = createImg('level6.png')}
         if(gameState>=7)
-        {this.l7button = createImg('Image/level7.png')}
+        {this.l7button = createImg('level7.png')}
         if(gameState>=8)
-        {this.l8button = createImg('Image/level8.png')}
+        {this.l8button = createImg('level8.png')}
         if(gameState>=9)
-        {this.l9button = createImg('Image/level9.png')}
+        {this.l9button = createImg('level9.png')}
         if(gameState>=10)
-        {this.l10button = createImg('Image/level10.png')}
+        {this.l10button = createImg('level10.png')}
         if(gameState>=11)
-        {this.l11button = createImg('Image/level11.png')}
+        {this.l11button = createImg('level11.png')}
         if(gameState>=12)
-        {this.l12button = createImg('Image/level12.png')}
+        {this.l12button = createImg('level12.png')}
         if(gameState>=13)
-        {this.l13button = createImg('Image/level13.png')}
+        {this.l13button = createImg('level13.png')}
         if(gameState>=14)
-        {this.l14button = createImg('Image/level14.png')}
+        {this.l14button = createImg('level14.png')}
         if(gameState>=15)
-        {this.l15button = createImg('Image/level15.png')}
+        {this.l15button = createImg('level15.png')}
     }
     l1(){
        this.l1button.position(200,200)
@@ -45,8 +45,8 @@ class Levels
                 baseY: 200,
                 stickRadius	: 50
             })
-            upButton1 = createImg('Image/jumpButton.png')
-            switchButton1 = createImg('Image/switchButton.png')
+            upButton1 = createImg('jumpButton.png')
+            switchButton1 = createImg('switchButton.png')
             switchButton1.position(displayWidth-350,displayHeight-100)
             upButton1.position(displayWidth-200,displayHeight-100)
             playerLevel1 = new Player(displayWidth/2-600,displayHeight/2-90,80,80)
@@ -68,8 +68,8 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton2 = createImg('Image/jumpButton.png')
-            switchButton2 = createImg('Image/switchButton.png')
+            upButton2 = createImg('jumpButton.png')
+            switchButton2 = createImg('switchButton.png')
             switchButton2.position(displayWidth-350,displayHeight-100)
             upButton2.position(displayWidth-200,displayHeight-100)
             whiteGroundLevel2 = new WhiteGround(displayWidth/2-200,displayHeight/2+100,displayWidth/2+60,20)
@@ -92,8 +92,8 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton3 = createImg('Image/jumpButton.png')
-        switchButton3 = createImg('Image/switchButton.png')
+        upButton3 = createImg('jumpButton.png')
+        switchButton3 = createImg('switchButton.png')
         switchButton3.position(displayWidth-350,displayHeight-100)
         upButton3.position(displayWidth-200,displayHeight-100)
         whiteGround1Level3 = new WhiteGround(displayWidth/2-500,displayHeight/2+300,300,300)
@@ -116,9 +116,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton4 = createImg('Image/jumpButton.png')
+            upButton4 = createImg('jumpButton.png')
             upButton4.position(displayWidth-200,displayHeight-100)
-            switchButton4 = createImg('Image/switchButton.png')
+            switchButton4 = createImg('switchButton.png')
             switchButton4.position(displayWidth-350,displayHeight-100)
             blackGround1Level4 = new BlackGround(displayWidth/2 + 3,displayHeight/2,displayWidth-600,20)
             blackGround2Level4 = new BlackGround(displayWidth/2+203,displayHeight/2-300,displayWidth-200,20)
@@ -144,9 +144,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton5 = createImg('Image/jumpButton.png')
+            upButton5 = createImg('jumpButton.png')
             upButton5.position(displayWidth-200,displayHeight-100)
-            switchButton5 = createImg('Image/switchButton.png')
+            switchButton5 = createImg('switchButton.png')
             switchButton5.position(displayWidth-350,displayHeight-100)
             blackGround1Level5 = new BlackGround(displayWidth/2,100,displayWidth-400,100)
             blackGround2Level5 = new BlackGround(displayWidth/2,displayHeight,displayWidth-400,200) 
@@ -171,9 +171,9 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton6 = createImg('Image/jumpButton.png')
+        upButton6 = createImg('jumpButton.png')
         upButton6.position(displayWidth-200,displayHeight-100)
-        switchButton6 = createImg('Image/switchButton.png')
+        switchButton6 = createImg('switchButton.png')
         switchButton6.position(displayWidth-350,displayHeight-100)
           blackGround1Level6 = new BlackGround(displayWidth/2-400,displayHeight,300,150)
           blackGround2Level6 = new BlackGround(displayWidth-100,displayHeight/2+180,300,600)
@@ -196,9 +196,9 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton7 = createImg('Image/jumpButton.png')
+        upButton7 = createImg('jumpButton.png')
         upButton7.position(displayWidth-200,displayHeight-100)
-        switchButton7 = createImg('Image/switchButton.png')
+        switchButton7 = createImg('switchButton.png')
         switchButton7.position(displayWidth-350,displayHeight-100)
            blackGround1Level7 = new BlackGround(displayWidth/2-140,displayHeight/2-50,150,500)
            blackGround2Level7 = new BlackGround(displayWidth/2+10,displayHeight/2+37.5,150,325)
@@ -228,9 +228,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton8 = createImg('Image/jumpButton.png')
+            upButton8 = createImg('jumpButton.png')
             upButton8.position(displayWidth-200,displayHeight-100)
-            switchButton8 = createImg('Image/switchButton.png')
+            switchButton8 = createImg('switchButton.png')
             switchButton8.position(displayWidth-350,displayHeight-100)
             blackGround1Level8 = new BlackGround(displayWidth/2-400,displayHeight-100,70,10)
             blackGround2Level8 = new BlackGround(displayWidth/2-400,displayHeight-400,70,10)
@@ -254,9 +254,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton9 = createImg('Image/jumpButton.png')
+            upButton9 = createImg('jumpButton.png')
             upButton9.position(displayWidth-200,displayHeight-100)
-            switchButton9 = createImg('Image/switchButton.png')
+            switchButton9 = createImg('switchButton.png')
             switchButton9.position(displayWidth-350,displayHeight-100)
             blackGround1Level9 = new BlackGround(displayWidth/2,displayHeight/2+300,displayWidth,displayHeight/2)
             blackGround2Level9 = new BlackGround(displayWidth/2,200,400,600)
@@ -277,9 +277,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton10 = createImg('Image/jumpButton.png')
+            upButton10 = createImg('jumpButton.png')
             upButton10.position(displayWidth-200,displayHeight-100)
-            switchButton10 = createImg('Image/switchButton.png')
+            switchButton10 = createImg('switchButton.png')
             switchButton10.position(displayWidth-350,displayHeight-100)
             blackGround1Level10 = new BlackGround(displayWidth/2-400,displayHeight/2,80,200)
             blackGround2Level10 = new BlackGround(displayWidth/2+200,displayHeight/2-200,80,80)
@@ -304,9 +304,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton11 = createImg('Image/jumpButton.png')
+            upButton11 = createImg('jumpButton.png')
             upButton11.position(displayWidth-200,displayHeight-100)
-            switchButton11 = createImg('Image/switchButton.png')
+            switchButton11 = createImg('switchButton.png')
             switchButton11.position(displayWidth-350,displayHeight-100)
             blackGround1Level11 = new BlackGround(displayWidth/2-600,displayHeight-100,70,70)
             blackGround2Level11 = new BlackGround(displayWidth/2-600,displayHeight-400,70,70)
@@ -334,9 +334,9 @@ class Levels
                 strokeStyle	: 'grey',
                 stickRadius	: 50
             })
-            upButton12 = createImg('Image/jumpButton.png')
+            upButton12 = createImg('jumpButton.png')
             upButton12.position(displayWidth-200,displayHeight-100)
-            switchButton12 = createImg('Image/switchButton.png')
+            switchButton12 = createImg('switchButton.png')
             switchButton12.position(displayWidth-350,displayHeight-100)
             blackGround1Level12 = new BlackGround(displayWidth/2,displayHeight/2-300,260,20)
             blackGround2Level12 = new BlackGround(displayWidth/2,displayHeight/2+85,450,250)
@@ -359,9 +359,9 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton13 = createImg('Image/jumpButton.png')
+        upButton13 = createImg('jumpButton.png')
         upButton13.position(displayWidth-200,displayHeight-100)
-        switchButton13 = createImg('Image/switchButton.png')
+        switchButton13 = createImg('switchButton.png')
         switchButton13.position(displayWidth-350,displayHeight-100)
         blackGround1Level13 = new BlackGround(displayWidth/2-400,displayHeight/2+50,100,140)
         blackGround2Level13 = new BlackGround(displayWidth/2-100,displayHeight/2+120,40,250)
@@ -387,9 +387,9 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton14 = createImg('Image/jumpButton.png')
+        upButton14 = createImg('jumpButton.png')
         upButton14.position(displayWidth-200,displayHeight-100)
-        switchButton14 = createImg('Image/switchButton.png')
+        switchButton14 = createImg('switchButton.png')
         switchButton14.position(displayWidth-350,displayHeight-100)
         blackGround1Level14 = new BlackGround(displayWidth/2-400,displayHeight/2+200,200,100)
         blackGround2Level14 = new BlackGround(displayWidth/2-325,displayHeight/2+50,50,200)
@@ -421,9 +421,9 @@ class Levels
             strokeStyle	: 'grey',
             stickRadius	: 50
         })
-        upButton15 = createImg('Image/jumpButton.png')
+        upButton15 = createImg('jumpButton.png')
         upButton15.position(displayWidth-200,displayHeight-100)
-        switchButton15 = createImg('Image/switchButton.png')
+        switchButton15 = createImg('switchButton.png')
         switchButton15.position(displayWidth-350,displayHeight-100)
             blackGround1Level15 = new BlackGround(displayWidth/2-400,displayHeight/2+200,200,10)
             blackGround2Level15 = new BlackGround(displayWidth/2-500,displayHeight/2+100,10,200)

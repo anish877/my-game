@@ -13,7 +13,7 @@ class Star{
         //Matter.Body.setMass(this.body, this.body.mass*4)
         this.animation = starAnimation
         this.animation2 = starAnimationWhite
-        //this.image = loadImage('Image/playerRight.png')
+        //this.image = loadImage('playerRight.png')
         World.add(world, this.body);
       }
       display(){
