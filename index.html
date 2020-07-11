@@ -20,8 +20,50 @@
     <script src="p5.play.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8">
+	<script>(function () {
+  
+  var game = {
+	  element: document.getElementById("gameContainer"),
+	  width: 1280,
+	  height: 800
+  },
+  
+  resizeGame = function () {
+		
+	  var viewport, newGameWidth, newGameHeight, newGameX, newGameY;
+				
+	  // Get the dimensions of the viewport
+	  viewport = {
+		  width: window.innerWidth,
+		  height: window.innerHeight
+	  };
+	  
+	  // Determine game size
+	  if (game.height / game.width > viewport.height / viewport.width) {
+		newGameHeight = viewport.height;
+		newGameWidth = newGameHeight * game.width / game.height;  
+	  } else {
+		newGameWidth = viewport.width;
+		newGameHeight = newGameWidth * game.height / game.width;		 
+	  }
+  
+	  game.element.style.width = newGameWidth + "px";
+	  game.element.style.height = newGameHeight + "px";
+	  
+	  newGameX = (viewport.width - newGameWidth) / 2;
+	  newGameY = (viewport.height - newGameHeight) / 2;
+
+	  // Set the new padding of the game so it will be centered
+	  game.element.style.padding = newGameY + "px " + newGameX + "px";
+  };
+  
+  window.addEventListener("resize", resizeGame);
+  resizeGame();
+}())</script>
 </head>
 <body>
+	<div id="gameContainer">
   <script src="sketch.js"></script>
+  </div>
 </body>
 </html>
